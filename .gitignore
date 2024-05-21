@@ -1,0 +1,25 @@
+# Archivos de configuración del entorno
+.env
+
+# Directorios de dependencias
+vendor/
+node_modules/
+
+# Archivos de log
+*.log
+application/logs/
+
+# Directorios de caché
+application/cache/
+
+# Directorios de archivos de subida
+uploads/
+
+# Archivos de sesiones
+application/sessions/
+
+
+# Ignorar archivos de configuración específicos de CodeIgniter
+application/config/database.php
+application/config/config.php
+application/config/hooks.php
