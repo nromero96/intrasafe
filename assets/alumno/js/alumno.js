@@ -18,8 +18,6 @@ $(function(){
     	}
 	}
 
-    //Mostar Lista
-	showAllAlumno();
 
 	//Editar
 	$('#showdata').on('click', '.btnEdit', function(){
@@ -28,6 +26,7 @@ $(function(){
 		$('div').removeClass('label-floating');
 		$('#mymodal').find('.tit-modal').text('Actualizar Alumno');
 		$('#formAlumno').attr('action', baseUrl + "AlumnoController/updateAlumno");
+
 		$.ajax({
 			type: 'ajax',
 			method: 'get',
@@ -76,7 +75,11 @@ $(function(){
 	            $('#formAlumno')[0].reset();
 	            swal("Echo!", "Los datos fueron actualizados!", "success");
 	            dnotificacion.showNotification('top', 'right');
-	            showAllAlumno();
+	            //refrescar la pagina en 1 segundo
+				setTimeout(function(){
+					location.reload();
+				}, 1000);
+
 	        },
 	        error: function() {
 	            alert('Error');
@@ -86,122 +89,54 @@ $(function(){
 
     });
 
-	//Listar por empresa
-	$('select#idslempresa').on('change',function(){
-    	var id = $(this).val();
-    	//alert(id);
-    	if(id !=''){
- 			$.ajax({
-				type: 'ajax',
-				method: 'get',
-				url: baseUrl + "AlumnoController/showAllForEmpresa",
-				data: {id: id},
-				async: false,
-				dataType: 'json',
-				success: function(data){
-					var html = '';
-					var i;
-					for (i=0; i<data.length; i++){
-						html +='<tr>'+
-									'<td>'+'👤'+'</td>'+
-									'<td>'+data[i].numerodocumento+'</td>'+
-									'<td>'+data[i].apellidos+'</td>'+
-									'<td>'+data[i].nombres+'</td>'+
-									'<td>'+data[i].telefono+'</td>'+
-									'<td>'+data[i].email+'</td>'+
-									'<td class="td-actions text-right">'+
-									'<a href="javascript:;" type="button" rel="tooltip" title="Editar" class="btn btn-success btnEdit" data="'+data[i].id_alumno+'"><i class="material-icons">edit</i><div class="ripple-container"></div></a>'+'</td>'+
-								'</tr>';
-								    //Boton Ver: <a href="javascript:;" type="button" rel="tooltip" title="Ver" class="btn btn-info"><i class="material-icons">visibility</i><div class="ripple-container"></div></a>
+	//Eliminar
+	$('#showdata').on('click', '.btnDelete', function(){
+		var id = $(this).attr('data');
+		// Confirmación de alerta
+		swal({
+			title: "¿Estás seguro?",
+			text: "Una vez eliminado, no podrá recuperar este dato!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					type: 'post', // Cambiado a 'post' para seguir la convención REST para eliminación
+					url: baseUrl + "AlumnoController/deleteAlumno",
+					data: {id: id},
+					async: false,
+					dataType: 'json',
+					success: function(data){
+						if(data.message == "eliminado"){
+							swal("¡Hecho!", 'Alumno eliminado correctamente', "success");
+							setTimeout(function(){
+								location.reload();
+							}, 1000);
+						} else {
+							swal("¡Error!", data.message, "error");
+						}
+					},
+					error: function(){
+						alert('Error al eliminar');
 					}
-					$('#showdata').html(html);
-				},
-				error:function(){
-					alert('Error');
-				}
-			});	
-    	}else{
-    		showAllAlumno();
-    	}
-	});
-
-	//Funcion Mostar Lista
-	function showAllAlumno(){
-		$.ajax({
-			type: 'ajax',
-			method: 'get',
-			url: baseUrl + "AlumnoController/showAllAlumno",
-			async: false,
-			dataType: 'json',
-			success: function(data){
-				var html = '';
-				var i;
-				for (i=0; i<data.length; i++){
-					html +='<tr>'+
-								'<td>'+'👤'+'</td>'+
-								'<td>'+data[i].numerodocumento+'</td>'+
-								'<td>'+data[i].apellidos+'</td>'+
-								'<td>'+data[i].nombres+'</td>'+
-								'<td>'+data[i].telefono+'</td>'+
-								'<td>'+data[i].email+'</td>'+
-								'<td class="td-actions text-right">'+
-								'<a href="javascript:;" type="button" rel="tooltip" title="Editar" class="btn btn-success btnEdit" data="'+data[i].id_alumno+'"><i class="material-icons">edit</i><div class="ripple-container"></div></a>'+'</td>'+
-							'</tr>';
-							    //Boton Ver: <a href="javascript:;" type="button" rel="tooltip" title="Ver" class="btn btn-info"><i class="material-icons">visibility</i><div class="ripple-container"></div></a>
-				}
-				$('#showdata').html(html);
-				$('#loadgif').addClass('hidden');
-			},
-			error:function(){
-				alert('Error');
+				});
 			}
-		});	
-	}
+		});
+	});
+	
+	
+
+
+
 
     //DataPicker
 	$( document ).ready(function() {
             $('#idfnacimiento').datepicker();
     });
 
-	$(document).ready(function(){
-    $('.tablafiltro').DataTable({
+	
 
-    	"aLengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100, "Todos"]],
-    	"sDom": 'Rfrtlip',
-    	"order": [],
-
-    	"columnDefs": [{
-          	"targets": 'no-sort',
-          	"orderable": false
-    	}],
-
-        language:{
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-                    }
-                });
- });
-    
 });
 

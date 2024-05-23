@@ -106,17 +106,6 @@
                     </div> -->
 
                     <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <div class="form-group" style="margin-top: 0px;">
-                                <label class="control-label">Alumnos por Empresa:</label>
-                                <?php $nomempresa[''] = 'Todos';?>
-                                    <?php echo form_dropdown('slempresas', $nomempresa, '', 'data-live-search="true" class="form-control selectpicker" id="idslempresa"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="blue">
@@ -129,22 +118,108 @@
                                     </h4>
                                     
                                 </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table table-striped tablafiltro">
-                                        <thead class="">
-                                            <th class="no-sort">🔽</th>
-                                            <th><b>N° Documento</b></th>
-                                            <th><b>Apellidos</b></th>
-                                            <th><b>Nombres</b></th>
-                                            <th><b>Teléfono</b></th>
-                                            <th><b>Correo</b></th>
-                                            <th class="no-sort"></th>
-                                        </thead>
-                                        <tbody id="showdata">
-                                        	<!-- Lista -->
-                                        	<p class="text-center" id="loadgif"><img style="max-width: 150px;" src="<?php echo base_url();?>assets/img/load-22.gif"></p>
-                                        </tbody>
-                                    </table>
+
+                                <div class="card-content">
+                                    <form class="row" action="<?php echo base_url('alumnos'); ?>" method="get">
+                                        <?php
+                                        //get in url data '?listforpage=3'
+
+                                        $listforpage = $this->input->get('listforpage') ? $this->input->get('listforpage') : 10;
+                                        $search = $this->input->get('search') ? $this->input->get('search') : '';
+                                        $foremp = $this->input->get('foremp') ? $this->input->get('foremp') : '';
+                                        ?>
+
+                                        <div class="col-md-2">
+                                            <div class="formserach">
+                                                <select name="listforpage" class="form-control" onchange="this.form.submit()">
+                                                    <option value="5" <?php if($listforpage == 5) echo 'selected'; ?>>5</option>
+                                                    <option value="10" <?php if($listforpage == 10) echo 'selected'; ?>>10</option>
+                                                    <option value="20" <?php if($listforpage == 20) echo 'selected'; ?>>20</option>
+                                                    <option value="50" <?php if($listforpage == 50) echo 'selected'; ?>>50</option>
+                                                    <option value="100" <?php if($listforpage == 100) echo 'selected'; ?>>100</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group" style="margin-top: 0px;">
+                                                <select name="foremp" class="form-control">
+                                                    
+                                                    <option value="">Todas las empresas</option>
+                                                    <?php foreach ($selectempresas as $selectempresa): ?>
+                                                        <option value="<?php echo $selectempresa->id_empresa; ?>" <?php if($foremp == $selectempresa->id_empresa) echo 'selected'; ?>>
+                                                            <?php echo truncate_text($selectempresa->razonsocial, 50); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="formserach">
+                                                <input type="text" name="search" class="form-control" placeholder="Search..." value="<?php echo $search; ?>">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Buscar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped tablafiltro">
+                                            <thead class="">
+                                                <th class="no-sort"><b>ID</b></th>
+                                                <th><b>Foto</b></th>
+                                                <th><b>N° Documento</b></th>
+                                                <th><b>Apellidos</b></th>
+                                                <th><b>Nombres</b></th>
+                                                <th><b>Teléfono</b></th>
+                                                <th><b>Correo</b></th>
+                                                <th class="no-sort"></th>
+                                            </thead>
+                                            <!-- <tbody id="showdata">
+                                                <p class="text-center" id="loadgif"><img style="max-width: 150px;" src="<?php echo base_url();?>assets/img/load-22.gif"></p>
+                                            </tbody> -->
+
+                                            <tbody id="showdata">
+                                                <?php foreach ($alumnos as $alumno): ?>
+
+                                                <tr>
+                                                    <td><?php echo $alumno->id_alumno; ?></td>
+                                                    <td>
+                                                        <img src="<?php echo base_url(); ?>uploads/fotos/<?php echo $alumno->fotoperfil; ?>" class="img-circle" style="width: 30px; height: 30px;">
+                                                    </td>
+                                                    <td><?php echo $alumno->numerodocumento; ?></td>
+                                                    <td><?php echo $alumno->apellidos; ?></td>
+                                                    <td><?php echo $alumno->nombres; ?></td>
+                                                    <td><?php echo $alumno->telefono; ?></td>
+                                                    <td><?php echo $alumno->email; ?></td>
+                                                    <td class="td-actions text-right">
+                                                        <a href="javascript:;" type="button" rel="tooltip" title="Editar" class="btn btn-success btnEdit" data="<?php echo $alumno->id_alumno; ?>">
+                                                            <i class="material-icons">edit</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                        <a href="javascript:;" type="button" rel="tooltip" title="Eliminar" class="btn btn-danger btnDelete" data="<?php echo $alumno->id_alumno; ?>">
+                                                            <i class="material-icons">close</i>
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                        <hr style="margin: 4px 0px 10px 0px;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?php echo $pagination_links; ?>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-right">
+                                                    <p class="infocantpagi"><?php echo $info_message; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

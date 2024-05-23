@@ -33,4 +33,11 @@ if(!function_exists('_is_post')){
 	}
 }
 
-
+if (!function_exists('truncate_text')) {
+    function truncate_text($text, $max_length = 30) {
+        if (strlen($text) > $max_length) {
+            return substr($text, 0, $max_length) . '...';
+        }
+        return $text;
+    }
+}

@@ -20,3 +20,6 @@ application/sessions/
 
 
 # Ignorar archivos de configuración específicos de CodeIgniter
+application/config/database.php
+application/config/config.php
+application/config/hooks.php

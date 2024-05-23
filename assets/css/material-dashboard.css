@@ -37,6 +37,28 @@
     position: relative;
 }
 
+.infocantpagi{
+    margin: 10px 0px 5px 0px;
+    color: #9b9b9b;
+}
+
+.formserach{
+    width: 100%;
+    display: flex;
+}
+
+.formserach .form-group{
+    width: 100%;
+    margin-top: 0px;
+    padding-bottom: 0px;
+}
+
+.formserach button{
+    margin: 0px;
+    line-height: 0px;
+    height: 35px;
+}
+
 .text-bold{
     font-weight: 600;
 }
@@ -2941,7 +2963,7 @@ fieldset[disabled] .form-group .form-control {
 }
 
 .form-group select {
-    appearance: none;
+    appearance: auto;
 }
 
 .form-group select~.material-input:after {
@@ -4000,10 +4022,10 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .pagination>.active>span,
 .pagination>.active>span:focus,
 .pagination>.active>span:hover {
-    background-color: #9c27b0;
-    border-color: #9c27b0;
+    background-color: #1a597f;
+    border-color: #124d71;
     color: #FFFFFF;
-    box-shadow: 0 4px 5px 0 rgba(156, 39, 176, 0.14), 0 1px 10px 0 rgba(156, 39, 176, 0.12), 0 2px 4px -1px rgba(156, 39, 176, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(26, 89, 127, 0.17), 0 3px 1px -2px rgba(26, 89, 127, 0.26), 0 1px 5px 0 rgba(26, 89, 127, 0.12);
 }
 
 .pagination.pagination-info>.active>a,
