@@ -2966,6 +2966,17 @@ fieldset[disabled] .form-group .form-control {
     appearance: auto;
 }
 
+.emlogoimg{
+    background: white;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 5px;
+}
+
+#logoemp{
+    width: 150px !important;
+}
+
 .form-group select~.material-input:after {
     display: none;
 }

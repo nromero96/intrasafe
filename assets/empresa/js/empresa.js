@@ -40,7 +40,7 @@ $(function(){
 	//Actualizar empresa
 	$('#btnSave').click(function(){
 		var url = $('#formEmpresa').attr('action');
-		var data = $('#formEmpresa').serialize();
+		var data = new FormData($('#formEmpresa')[0]);
 
 		//validar
 		var razonsocial = $('input[name=txtrazonsocial]');
@@ -84,6 +84,9 @@ $(function(){
 				method: 'post',
 				url: url,
 				data: data,
+				cache: false,
+				contentType: false,
+				processData: false,
 				async: false,
 				dataType:'json',
 				success: function(respuesta){
@@ -153,6 +156,9 @@ $(function(){
 				}else if(data.tyc=='0'){
 					document.getElementById("txtterms").checked = false;
 				}
+
+				$('#logoemp').attr('src', baseUrl + 'uploads/logo-empresas/' + data.logo_emp);
+				$('#logo_emp').hide();
 			},
 
 			error: function(){
@@ -199,6 +205,10 @@ $(function(){
 				}else if(data.tyc=='0'){
 					document.getElementById("txtterms").checked = false;
 				}
+
+				$('#logoemp').attr('src', baseUrl + 'uploads/logo-empresas/' + data.logo_emp);
+				$('#logo_emp').show();
+
 			},
 			error: function(){
 				 alert('Error al Editar');
@@ -493,6 +503,8 @@ $(function(){
 				var i;
 				for(i=0; i<data.length; i++){
 					html +='<tr>'+
+								'<td>'+data[i].id_empresa+'</td>'+
+								'<td><img class="emlogoimg" src="'+baseUrl+'uploads/logo-empresas/'+data[i].logo_emp+'"></td>'+
 								'<td>'+data[i].razonsocial+'</td>'+
 								'<td>'+data[i].ruc+'</td>'+
 								'<td>'+data[i].direccion+'</td>'+

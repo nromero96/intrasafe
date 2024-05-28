@@ -60,24 +60,11 @@ class EmpresaModel extends CI_Model
 		}
 	}
 
-	public function updateEmpresa(){
+	public function updateEmpresa($field){
 		$id = $this->input->post('txtIdEmpresa');
-		$empresa = array(
-				'razonsocial' => $this->input->post('txtrazonsocial'),
-				'ruc' => $this->input->post('txtruc'),
-				'direccion' => $this->input->post('txtdireccion'),
-				'emailcontacto' => $this->input->post('txtemailcontacto'),
-				'nombrecontacto' => $this->input->post('txtnombrecontacto'),
-				'apellidoscontacto' => $this->input->post('txtapellidoscontacto'),
-				'telefono' => $this->input->post('txttelefono'),
-				'emailfactura' => $this->input->post('txtemailfactura'),
-				'nombreusuario' => $this->input->post('txtnombreusuario'),
-				'password' => $this->input->post('txtpassword'),
-				'tyc' => $this->input->post('txtterms')
-		);
 
 		$this->db->where('id_empresa',$id);
-		$this->db->update('empresas',$empresa);
+		$this->db->update('empresas',$field);
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{

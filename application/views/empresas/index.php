@@ -99,6 +99,13 @@
 
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <img id="logoemp" src="" class="img-responsive">
+                                                <input type="file" name="logo_emp" id="logo_emp">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div class="checkbox">
                                                     <label>
                                                          <input type="hidden" value="0" name="txtterms" />
@@ -189,6 +196,8 @@
                                 <div class="card-content table-responsive">
                                     <table class="table table-striped tablafiltro">
                                         <thead class="">
+                                            <th><b>ID</b></th>
+                                            <th class="no-sort">-</th>
                                             <th><b>Razón Social</b></th>
                                             <th><b>N° RUC</b></th>
                                             <th><b>Dirección</b></th>

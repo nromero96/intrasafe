@@ -66,13 +66,61 @@ class EmpresaController extends CI_Controller{
 	}
 
 	public function updateEmpresa(){
-		$result = $this->EmpresaModel->updateEmpresa();
-		$msg['success'] = false;
-		$msg['type'] = 'update';
-		if($result){
-			$msg['success']=true;
+
+		$config['upload_path']          = './uploads/logo-empresas';
+        $config['allowed_types']        = 'png|PNG|jpg|JPG';
+        $config['max_size']             = 0;
+      	$this->load->library('upload', $config);
+
+		if(!$this->upload->do_upload("logo_emp")){
+			
+			$field = array(
+				'razonsocial' => $this->input->post('txtrazonsocial'),
+				'ruc' => $this->input->post('txtruc'),
+				'direccion' => $this->input->post('txtdireccion'),
+				'emailcontacto' => $this->input->post('txtemailcontacto'),
+				'nombrecontacto' => $this->input->post('txtnombrecontacto'),
+				'apellidoscontacto' => $this->input->post('txtapellidoscontacto'),
+				'telefono' => $this->input->post('txttelefono'),
+				'emailfactura' => $this->input->post('txtemailfactura'),
+				'nombreusuario' => $this->input->post('txtnombreusuario'),
+				'password' => $this->input->post('txtpassword'),
+				'tyc' => $this->input->post('txtterms')
+			);
+
+			$result = $this->EmpresaModel->updateEmpresa($field);
+			
+			$msg['success'] = false;
+			$msg['type'] = 'update';
+			if($result){
+				$msg['success']=true;
+			}
+			echo json_encode($msg);
+		} else {
+			$dataimglogo = array('upload_data' => $this->upload->data());
+			$field = array(
+				'razonsocial' => $this->input->post('txtrazonsocial'),
+				'ruc' => $this->input->post('txtruc'),
+				'direccion' => $this->input->post('txtdireccion'),
+				'emailcontacto' => $this->input->post('txtemailcontacto'),
+				'nombrecontacto' => $this->input->post('txtnombrecontacto'),
+				'apellidoscontacto' => $this->input->post('txtapellidoscontacto'),
+				'telefono' => $this->input->post('txttelefono'),
+				'emailfactura' => $this->input->post('txtemailfactura'),
+				'nombreusuario' => $this->input->post('txtnombreusuario'),
+				'password' => $this->input->post('txtpassword'),
+				'tyc' => $this->input->post('txtterms'),
+				'logo_emp' => $dataimglogo['upload_data']['file_name']
+			);
+
+			$result = $this->EmpresaModel->updateEmpresa($field);
+			$msg['success'] = false;
+			$msg['type'] = 'update';
+			if($result){
+				$msg['success']=true;
+			}
+			echo json_encode($msg);
 		}
-		echo json_encode($msg);
 	}
 
 

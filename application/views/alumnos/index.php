@@ -158,7 +158,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="formserach">
-                                                <input type="text" name="search" class="form-control" placeholder="Search..." value="<?php echo $search; ?>">
+                                                <input type="text" name="search" class="form-control" placeholder="Buscar..." value="<?php echo $search; ?>">
                                                 <button type="submit" class="btn btn-primary">
                                                     Buscar
                                                 </button>
