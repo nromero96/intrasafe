@@ -11,6 +11,7 @@ class Grp_csController extends CI_Controller
 
 		parent::__construct();
 		$this->load->model("CursoModel");
+		$this->load->model("CertificadoModel");
 		$this->load->helper(array('form', 'url'));
 	}
 
@@ -40,6 +41,12 @@ class Grp_csController extends CI_Controller
 		}else{
 			redirect(base_url(), 'refresh');
 		}
+	}
+
+	//obtener el último certificado
+	public function getUltimoCertificado(){
+		$certificado = $this->CertificadoModel->getUltimoCertificado();
+		echo json_encode($certificado);
 	}
 
 }

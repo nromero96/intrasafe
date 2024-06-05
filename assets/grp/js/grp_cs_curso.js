@@ -412,6 +412,26 @@ $(document).ready(function(){
 			success: function(data){
 				$('input[name=txtidalumnogrupo]').val(data.id_alumno_grupo);
 				$('input[name=txtsericert]').val(data.fechaserie);
+
+				//Ultimo Certificado del serie
+				$.ajax({
+					type: 'ajax',
+					method: 'get',
+					url: baseUrl + "Grp_csController/getUltimoCertificado?fechaserie="+data.fechaserie,
+					async: false,
+					dataType: 'json',
+					success: function(datacorrelativo){
+						if(datacorrelativo == ''){
+							$('#ultimocertif').text('N/A');
+						}else{
+							$('#ultimocertif').text(datacorrelativo.ct_serie +'-'+ datacorrelativo.ct_correlativo);
+						}
+					},
+					error: function(){
+						swal("¡Ups!", "Algo salió mal, no pudimos obetener el correlativo!. Intentelo nuevamente", "error");
+					}
+				});
+
 			},
 			error: function(){
 				 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");

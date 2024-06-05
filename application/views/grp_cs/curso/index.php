@@ -161,7 +161,12 @@
 
                                     </div>
                                     <div class="col-md-3">
-                                    	<br><br>
+                                        <div class="text-center" style="margin-top: 4px; margin-bottom: 4px;">
+                                            <small style="line-height: 14px;display: block;">
+                                                Último Certificado del serie: <b><span id="ultimocertif">...</span></b>
+                                            </small>
+                                        </div>
+                                    	
                                     	<input type="text" name="txtsericert" id="txtsericert" class="text-center" style="width: 100%"> <!-- readonly -->
                                     	<input type="text" name="txtcodigoc" id="txtcodigoc" class="text-center" placeholder="000" maxlength="3" style="width: 100%;    margin-top: 9px;" >
 										<br>
