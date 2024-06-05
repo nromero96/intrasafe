@@ -19,6 +19,46 @@
             .imgverif{
                 max-width: 100%;
             }
+
+            .bxdainfo{
+                background: #ffffff;
+                box-shadow: 0px 4px 10px -1px #b6b6b6;
+                padding: 11px;
+            }
+
+            .bxdainfo b{
+                color: #1e648c;
+            }
+
+            .bxdainfo::after {
+                content: '';
+                position: absolute;
+                width: 145px;
+                height: 6px;
+                background: url(https://www.safesi.com/wp-content/themes/manya_safesi/img/h2.png);
+                bottom: 0px;
+                left: 0;
+            }
+
+            .bxdainfo::before {
+                content: '';
+                position: absolute;
+                width: 90%;
+                width: calc(100% - 150px);
+                width: -webkit-calc(100% - 150px);
+                width: -moz-calc(100% - 150px);
+                width: -o-calc(100% - 150px);
+                width: -ms-calc(100% - 150px);
+                height: 2px;
+                background: #1A597F;
+                bottom: 0px;
+                left: 150px;
+            }
+
+            .fotoperfil{
+                width: 100%;
+                border-radius: 7px;
+            }
             
             .bgimg{
                 padding: 4em;
@@ -108,14 +148,20 @@
                             <button class="btn btn-primary btnnewct" id="btnNuevaconsulta" type="button"> Nueva Consulta <div class="ripple-container"></div></button>
                         </div>
                         <br>
-                        <div class="col-md-12" style="background: #ffffff;box-shadow: 0px 4px 10px -1px #b6b6b6;;">
-                            <h4>
-                                <span><b>Documento: </b></span><span id="spdni">...</span><br>
-                                <span><b>Nombres: </b></span><span id="spnombresyapellidos">...</span>
-                            </h4>
+                        <div class="col-md-6 bxdainfo">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="" id="fotoperfil" class="fotoperfil">
+                                </div>
+                                <div class="col-md-9">
+                                    <h4>
+                                        <p><b>Documento: </b></span><br><span id="spdni">...</p>
+                                        <p><b>Nombres: </b></span><br><span id="spnombresyapellidos">...</p>
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <br>
                     <br>
                     <div class="row hidden" id="dvlistacertificado">
                         <div class="col-md-12" style="background: #ffffff;box-shadow: 0px 4px 10px -1px #b6b6b6;;">

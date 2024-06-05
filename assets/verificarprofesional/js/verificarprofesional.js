@@ -42,6 +42,7 @@ function viewDataAlumno(numdni){
 				$('#spnombresyapellidos').text('...');
 			}else{
 				//Show Data Alumno
+				$('#fotoperfil').attr('src',baseUrl+'uploads/fotos/'+data.fotoperfil);
 				$('#spdni').text(data.numerodocumento);
 				$('#spnombresyapellidos').text(data.nombres+' '+data.apellidos);
 
