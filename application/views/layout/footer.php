@@ -104,6 +104,7 @@
 
 
 <?php if($this->uri->segment(1) == 'cursos'){ ?>
+    <script src="https://cdn.tiny.cloud/1/nk8hyrtbwufu4vj2owfxl9shdmlc48wf8adgpzc9l70bnron/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="<?php echo base_url(); ?>assets/curso/js/curso.js" ></script>
 <?php } ?>
 

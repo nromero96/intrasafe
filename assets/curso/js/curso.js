@@ -122,6 +122,10 @@ $(function(){
 
 	//Guarda o Actualiza
 	$('#btnSave').click(function(){
+
+		// Sincronizar el contenido del editor TinyMCE con el textarea
+		tinymce.triggerSave();
+
 		var url = $('#formCurso').attr('action');
 		var data = $('#formCurso').serialize();
 
@@ -234,6 +238,10 @@ $(function(){
 				$('input[name=txtnombre]').val(data.nombrecurso);
 				$('select[name=txtvigencia]').val(data.vigencia_curso);
 				$('textarea[name=txtdescripcion]').val(data.descripcion);
+
+				// Actualiza el contenido del editor TinyMCE
+                tinymce.get('textomodulo').setContent(data.textomodulo);
+
 				$('select[name=slcapacitador]').val(data.id_capacitador);
 				$('input[name=txtprecio]').val(data.precio);
 				$('input[name=txtprecio2]').val(data.precio2);
@@ -688,7 +696,30 @@ $(function(){
                     }
                 });
 
-
-
-
  	});
+
+
+	//funcion de tabs
+	$(document).ready(function(){
+		$('#crinfo').click(function(){
+			$('#crinfo').addClass('active');
+			$('#crinfo_content').removeClass('hidden');
+
+			$('#crmod').removeClass('active');
+			$('#crmod_content').addClass('hidden');
+		});
+
+		$('#crmod').click(function(){
+			$('#crmod').addClass('active');
+			$('#crmod_content').removeClass('hidden');
+
+			$('#crinfo').removeClass('active');
+			$('#crinfo_content').addClass('hidden');
+		});
+	});
+
+	tinymce.init({
+		selector: '#textomodulo',  // textomodulo
+		plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+		toolbar_mode: 'floating',
+	});

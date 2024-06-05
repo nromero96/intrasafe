@@ -2977,6 +2977,36 @@ fieldset[disabled] .form-group .form-control {
     width: 150px !important;
 }
 
+.taboption{
+    display: flex;
+}
+
+.botntap{
+    flex: 1;
+    background: #e7e7e7;
+    color: #1a597f;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.botntap:hover{
+    color: #1a597f;
+    font-weight: bold;
+}
+
+.botntap.active{
+    background: #1a597f;
+    color: white;
+}
+
+.botntap.active:hover{
+    color: white;
+}
+
 .form-group select~.material-input:after {
     display: none;
 }
@@ -4180,7 +4210,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .modal-content .modal-body {
-    padding-top: 24px;
+    padding-top: 5px;
     padding-right: 24px;
     padding-bottom: 16px;
     padding-left: 24px;

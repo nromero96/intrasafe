@@ -25,6 +25,7 @@ class CursoModel extends CI_Model
 			'nombrecurso' =>$this->input->post('txtnombre'),
 			'vigencia_curso' =>$this->input->post('txtvigencia'),
 			'descripcion' =>$this->input->post('txtdescripcion'),
+			'textomodulo' =>$this->input->post('textomodulo'),
 			'id_capacitador' =>$this->input->post('slcapacitador'),
 			'precio' =>$this->input->post('txtprecio'),
 			'precio2' =>$this->input->post('txtprecio2'),
@@ -69,11 +70,13 @@ class CursoModel extends CI_Model
 	}
 
 	public function updateCurso(){
+		
 		$id = $this->input->post('txtCurso');
 		$field = array(
 			'nombrecurso' =>$this->input->post('txtnombre'),
 			'vigencia_curso' =>$this->input->post('txtvigencia'),
 			'descripcion' =>$this->input->post('txtdescripcion'),
+			'textomodulo' =>$this->input->post('textomodulo'),
 			'id_capacitador' =>$this->input->post('slcapacitador'),
 			'precio' =>$this->input->post('txtprecio'),
 			'precio2' =>$this->input->post('txtprecio2'),

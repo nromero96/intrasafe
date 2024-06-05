@@ -21,119 +21,133 @@
                                     <p>Datos del curso</p>
                                 </div>
                                 <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group label-floating form-group-no dvcmp" id="dnombre">
-                                                    <label class="control-label">Titulo<span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtnombre" id="txtnombrecurso">
-                                                </div>
-                                            </div>
+                                
+                                        <div class="taboption">
+                                            <a href="javascript:;" class="botntap active" id="crinfo">Información</a>
+                                            <a href="javascript:;" class="botntap" id="crmod">Módulo</a>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="form-group label-floating dvcmp">
-                                                        <label class="control-label">Descripción <span style="color: red;">(Etiqueta <code>&lt;br&gt;</code> para salto de linea.)</span></label> 
-                                                        <textarea class="form-control" rows="5" name="txtdescripcion" id="txtdescripcion" placeholder="Máximo 250 caracteres"></textarea>
-                                                        <span style="float: right;" id="contadordescripcion"></span>
+
+                                        <div class="" id="crinfo_content">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group label-floating form-group-no dvcmp" id="dnombre">
+                                                        <label class="control-label">Titulo<span class="req-ast">*</span></label>
+                                                        <input type="text" class="form-control" name="txtnombre" id="txtnombrecurso">
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                    <div class="form-group label-floating dvcmp">
-                                                    	<label class="control-label">Capacitador:</label>
-                                                        <?php $nomcapacitador[''] = ''; ?>
-                                                        <?php echo form_dropdown('slcapacitador', $nomcapacitador, '', 'class="form-control" id="slcapacitador"'); ?>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group label-floating dvcmp">
+                                                            <label class="control-label">Descripción <span style="color: red;">(Etiqueta <code>&lt;br&gt;</code> para salto de linea.)</span></label> 
+                                                            <textarea class="form-control" rows="5" name="txtdescripcion" id="txtdescripcion" placeholder="Máximo 250 caracteres"></textarea>
+                                                            <span style="float: right;" id="contadordescripcion"></span>
+                                                        </div>
                                                     </div>
-                                            </div>
-                                            <div class="col-md-6"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dprecio">
-                                                    <label class="control-label">Precio 1 <span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtprecio" id="txtprecio">
-                                                    <small class="txtmsprec">Prec. Alto</small>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dprecio2">
-                                                    <label class="control-label">Precio 2 <span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtprecio2" id="txtprecio2">
-                                                    <small class="txtmsprec">Prec. Intermedio</small>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                        <div class="form-group label-floating dvcmp">
+                                                            <label class="control-label">Capacitador:</label>
+                                                            <?php $nomcapacitador[''] = ''; ?>
+                                                            <?php echo form_dropdown('slcapacitador', $nomcapacitador, '', 'class="form-control" id="slcapacitador"'); ?>
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dprecio">
+                                                        <label class="control-label">Precio 1 <span class="req-ast">*</span></label>
+                                                        <input type="text" class="form-control" name="txtprecio" id="txtprecio">
+                                                        <small class="txtmsprec">Prec. Alto</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dprecio2">
+                                                        <label class="control-label">Precio 2 <span class="req-ast">*</span></label>
+                                                        <input type="text" class="form-control" name="txtprecio2" id="txtprecio2">
+                                                        <small class="txtmsprec">Prec. Intermedio</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dprecio3">
+                                                        <label class="control-label">Precio 3 <span class="req-ast">*</span></label>
+                                                        <input type="text" class="form-control" name="txtprecio3" id="txtprecio3">
+                                                        <small class="txtmsprec">Prec. Bajo</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dduracion">
+                                                        <label class="control-label">Duración <span class="req-ast">*</span></label>
+                                                        <input type="number" class="form-control" name="txthoras" id="txthoras" min="0">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dnnotas">
+                                                        <label class="control-label">N° Notas <span class="req-ast">*</span></label>
+                                                        <input type="number" class="form-control" name="txtnumeronotas" id="txtnumeronotas" min="1" max="4">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group label-floating dvcmp" id="dndcupos">
+                                                        <label class="control-label">N° Cupos</label>
+                                                        <input type="number" class="form-control" name="txtcupos" id="txtcupos" min="1">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dprecio3">
-                                                    <label class="control-label">Precio 3 <span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtprecio3" id="txtprecio3">
-                                                    <small class="txtmsprec">Prec. Bajo</small>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                <hr style="margin-top: 13px;margin-bottom: 6px;">
+                                                <p style="font-weight: bold;margin-bottom: 4px;">Certificado:</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dduracion">
-                                                    <label class="control-label">Duración <span class="req-ast">*</span></label>
-                                                    <input type="number" class="form-control" name="txthoras" id="txthoras" min="0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating form-group-no dvcmp" id="dvigencia">
+                                                        <label class="control-label">Vigencia<span class="req-ast">*</span></label>
+                                                        <select class="form-control" name="txtvigencia" id="txtvigencia">
+                                                            <option value="1">1 año</option>
+                                                            <option value="2">2 años</option>
+                                                            <option value="3">3 años</option>
+                                                            <option value="0">Sin vigencia</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating dvcmp">
+                                                        <label class="control-label">Firma Gerente:</label>
+                                                        <?php echo form_dropdown('slcfirmagt', $firmagerentes, '', 'class="form-control" id="slcfirmagt"'); ?>
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dnnotas">
-                                                    <label class="control-label">N° Notas <span class="req-ast">*</span></label>
-                                                    <input type="number" class="form-control" name="txtnumeronotas" id="txtnumeronotas" min="1" max="4">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group label-floating dvcmp" id="dndcupos">
-                                                    <label class="control-label">N° Cupos</label>
-                                                    <input type="number" class="form-control" name="txtcupos" id="txtcupos" min="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                               <hr style="margin-top: 13px;margin-bottom: 6px;">
-                                               <p style="font-weight: bold;margin-bottom: 4px;">Certificado:</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating form-group-no dvcmp" id="dvigencia">
-                                                    <label class="control-label">Vigencia<span class="req-ast">*</span></label>
-                                                    <select class="form-control" name="txtvigencia" id="txtvigencia">
-                                                        <option value="1">1 año</option>
-                                                        <option value="2">2 años</option>
-                                                        <option value="3">3 años</option>
-                                                        <option value="0">Sin vigencia</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating dvcmp">
-                                                    <label class="control-label">Firma Gerente:</label>
-                                                    <?php echo form_dropdown('slcfirmagt', $firmagerentes, '', 'class="form-control" id="slcfirmagt"'); ?>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
                                         
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group label-floating form-group-no dvcmp" id="dvtipocert">
-                                                    <label class="control-label">Tipo certificado<span class="req-ast">*</span></label>
-                                                    <textarea class="form-control" name="tipocert" id="tipocert" rows="2" >Por haber aprobado satisfactoriamente el curso realizado el</textarea>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating form-group-no dvcmp" id="dvtipocert">
+                                                        <label class="control-label">Tipo certificado<span class="req-ast">*</span></label>
+                                                        <textarea class="form-control" name="tipocert" id="tipocert" rows="2" >Por haber aprobado satisfactoriamente el curso realizado el</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <br>
+                                                    <input type="hidden" value="0" name="showdescripcion">
+                                                    <input type="checkbox" id="showdescripcion" name="showdescripcion" value="1" checked> <label for="showdescripcion">Mostrar descripción en el certificado.</label>
+                                                    
+                                                    <br>
+                                                    <input type="hidden" value="0" name="shownotact">
+                                                    <input type="checkbox" id="shownotact" name="shownotact" value="1" checked> <label for="shownotact">Mostrar nota en el certificado.</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <br>
-                                                <input type="hidden" value="0" name="showdescripcion">
-                                                <input type="checkbox" id="showdescripcion" name="showdescripcion" value="1" checked> <label for="showdescripcion">Mostrar descripción en el certificado.</label>
-                                                
-                                                <br>
-                                                <input type="hidden" value="0" name="shownotact">
-                                                <input type="checkbox" id="shownotact" name="shownotact" value="1" checked> <label for="shownotact">Mostrar nota en el certificado.</label>
-                                            </div>
+
+                                        </div>
+
+                                        <div class="hidden" id="crmod_content">
+                                            <textarea name="textomodulo" id="textomodulo"></textarea>
                                         </div>
                                         
                                 </div>
