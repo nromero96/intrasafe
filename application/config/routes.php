@@ -155,6 +155,9 @@ $route['emp/e_rpt/listacursos'] = "emp/RptController/viwListaCursos";
 
 $route['emp/e_rpt/listacursos/curso'] = "emp/RptController/viewCursosAlumnos";
 
+/*Certificado Internacional*/ 
+$route['certificados-internacionales'] = "CertificadoInternacionalController";
+
 /*Verificar al profesional*/
 $route['verificar_al_profesional']="VerificarProfesionalController";
 

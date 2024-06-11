@@ -153,6 +153,31 @@
                         </div>
                 </li>
 
+                <li routerlinkactive="active">
+                        <a data-toggle="collapse" href="#tablescert" <?php if ($this->uri->segment(1) == 'certificados-internacionales') {?> class="selectactv" <?php }?> >
+                            <i class="material-icons">wysiwyg</i>
+                            <p>CERTIFICADOS<b class="caret"></b></p>
+                        </a>
+
+                        <div class="collapse" id="tablescert" >
+                            <ul class="nav">
+                                
+                                <li <?php if ($this->uri->segment(2) == 'alumcert') {?> class="active" <?php }?> >
+                                    <a target="_blank" href="<?=base_url()?>rpt/alumcert">
+                                        <span class="sidebar-normal">> SAFESI</span>
+                                    </a>
+                                </li>
+
+                                <li <?php if ($this->uri->segment(2) == 'pagos_empresas') {?> class="active" <?php }?> >
+                                    <a href="<?=base_url()?>certificados-internacionales">
+                                        <span class="sidebar-normal">> INTERNACIONAL</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                </li>
+
 
                     <li <?php if ($this->uri->segment(1) == 'settings') {?> class="active" <?php }?>>
                         <a href="<?=base_url()?>settings">

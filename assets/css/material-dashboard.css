@@ -2981,6 +2981,11 @@ fieldset[disabled] .form-group .form-control {
     display: flex;
 }
 
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
 .botntap{
     flex: 1;
     background: #e7e7e7;
