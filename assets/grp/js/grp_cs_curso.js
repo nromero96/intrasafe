@@ -708,9 +708,30 @@ $(document).ready(function(){
 	    	$('#txtsmscond').text('-------------');
 	    }
 
-	} 
+	}
 
+	//slcertificado
+	$('#slcertificado').on('change', function(){
+		var id = $(this).val();
+		if(id=='1'){
+			$('#dvlogocliente').addClass('hidden');
+			$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/FONDO_2021.jpg" style="width: 100%;height: auto;" ></img></a>');
+		}
+		if(id=='2'){
+			$('#dvlogocliente').removeClass('hidden');
+			$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/certificado-m322.jpg" style="width: 100%;height: auto;" ></img></a>');
+		}
+	});
 
+	//logo_cliente hidden dvempresa
+	$('input[name=logo_cliente]').on('change', function(){
+		var val = $(this).val();
+		if(val=='no'){
+			$('#dvempresa').addClass('hidden');
+		}else{
+			$('#dvempresa').removeClass('hidden');
+		}
+	});
 
 
 

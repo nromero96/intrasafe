@@ -258,20 +258,74 @@ class GrupoEmpresaModel extends CI_Model
 	}
 
 
-	public function saveCertif(){
+	// public function saveCertif(){
+	// 	$idalumnogrupo = $this->input->post('txtidalumnogrupo');
+	// 	$sericert = $this->input->post('txtsericert');
+	// 	$nombgcert = $this->input->post('txtnombgcert');
+	// 	$codcerti = $this->input->post('txtcodigoc');
+
+	// 	//nuevos campos
+	// 	$id_modelcert = $this->input->post('slcertificado');
+
+	// 	$query= $this->db->query("CALL sp_guardar_certificado_uno(".$idalumnogrupo.",'".$sericert."','".$codcerti."','".$nombgcert."')");
+
+	// 	if($this->db->affected_rows() > 0){
+	// 		return true;
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+
+	public function saveCertif() {
+		// Obtener datos del POST
 		$idalumnogrupo = $this->input->post('txtidalumnogrupo');
 		$sericert = $this->input->post('txtsericert');
 		$nombgcert = $this->input->post('txtnombgcert');
 		$codcerti = $this->input->post('txtcodigoc');
 
-		$query= $this->db->query("CALL sp_guardar_certificado_uno(".$idalumnogrupo.",'".$sericert."','".$codcerti."','".$nombgcert."')");
-
-		if($this->db->affected_rows() > 0){
-			return true;
-		}else{
+		$id_modelcert = $this->input->post('slcertificado'); 
+		$img_bg_certificado_dos = $this->input->post('img_bg_certificado_dos');
+		$logo_emp = $this->input->post('logo_emp');
+		$mostrar_modulo = $this->input->post('mostrar_modulo');
+	
+		// Iniciar la transacción
+		$this->db->trans_start();
+	
+		// Insertar en la tabla certificado
+		$dataCertificado = array(
+			'id_alumno_grupo' => $idalumnogrupo,
+			'serie' => $sericert,
+			'correlativo' => $codcerti,
+			'id_modelcert' => $id_modelcert,
+			'img_bg_certificado' => $nombgcert,
+			'img_bg_certificado_dos' => $img_bg_certificado_dos,
+			'logo_emp' => $logo_emp,
+			'mostrar_modulo' => $mostrar_modulo,
+		);
+		$this->db->insert('certificado', $dataCertificado);
+	
+		// Actualizar la tabla alumno_grupo
+		$dataAlumnoGrupo = array(
+			'cert_btn' => 1
+		);
+		$this->db->where('id_alumno_grupo', $idalumnogrupo);
+		$this->db->update('alumno_grupo', $dataAlumnoGrupo);
+	
+		// Completar la transacción
+		$this->db->trans_complete();
+	
+		// Verificar el estado de la transacción
+		if ($this->db->trans_status() === FALSE) {
+			// Algo salió mal, cancelar la transacción
+			$this->db->trans_rollback();
 			return false;
+		} else {
+			// Todo salió bien, confirmar la transacción
+			$this->db->trans_commit();
+			return true;
 		}
 	}
+	
 
 	public function verifAlumEnGrupo(){
 		$idgrupo = $this->input->get('idgrupo');

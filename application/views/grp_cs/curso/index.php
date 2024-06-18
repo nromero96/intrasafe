@@ -152,18 +152,57 @@
                             <div class="modal-body" style="padding-top: 0px !important;">
                                 <div class="row">
                                     <div class="col-md-9">
-                                    	<small>Fondo Actual</small>
+
+                                        <div class="form-group" style="margin-top: 5px;">
+                                            <select name="slcertificado" id="slcertificado" class="form-control">
+                                                <option value="1">Certificado de General</option>
+                                                <option value="2">Certificado de Empresas</option>
+                                            </select>
+                                        </div>
+
                                     	<div id="prvwcertbg">
                                     		
                                     	</div>
                                         <input type="hidden" name="txtidalumnogrupo" id="txtidalumnogrupo">
                                 		<input type="hidden" name="txtnombgcert" id="txtnombgcert">
 
+                                        <div class="row">
+                                            <div class="col-md-6 text-center">
+                                                <label class="control-label">Mostrar Módulo:</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="mostrar_modulo" value="no" checked>
+                                                        No
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="mostrar_modulo" value="si">
+                                                        Sí
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div id="dvlogocliente" class="col-md-6 text-center hidden">
+                                                <label class="control-label">Logo Cliente:</label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="logo_cliente" value="no" checked>
+                                                        No
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="logo_cliente" value="si">
+                                                        Sí
+                                                    </label>
+                                                </div>
+                                                <div class="form-group hidden" id="dvempresa" style="margin-top: 5px;">
+                                                    <input type="text" name="empresa" class="form-control" placeholder="Buscar Empresa..." id="empresa">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="text-center" style="margin-top: 4px; margin-bottom: 4px;">
+                                        <div class="text-center" style="margin-top: 14px; margin-bottom: 4px;">
                                             <small style="line-height: 14px;display: block;">
-                                                Último Certificado del serie: <b><span id="ultimocertif">...</span></b>
+                                                Último Certificado de la serie: <b><span id="ultimocertif">...</span></b>
                                             </small>
                                         </div>
                                     	

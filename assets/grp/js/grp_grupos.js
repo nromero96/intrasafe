@@ -868,28 +868,57 @@ $(function(){
 			success: function(data){
 				$('input[name=txtidalumnogrupo]').val(data.id_alumno_grupo);
 				$('input[name=txtsericert]').val(data.fechaserie);
+
+				//Ultimo Certificado del serie
+				$.ajax({
+					type: 'ajax',
+					method: 'get',
+					url: baseUrl + "Grp_csController/getUltimoCertificado?fechaserie="+data.fechaserie,
+					async: false,
+					dataType: 'json',
+					success: function(datacorrelativo){
+						if(datacorrelativo == ''){
+							$('#ultimocertif').text('N/A');
+						}else{
+							$('#ultimocertif').text(datacorrelativo.ct_serie +'-'+ datacorrelativo.ct_correlativo);
+						}
+					},
+					error: function(){
+						swal("¡Ups!", "Algo salió mal, no pudimos obetener el correlativo!. Intentelo nuevamente", "error");
+					}
+				});
+
 			},
 			error: function(){
 				 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");
 			}
 		});
 
-		$.ajax({
-			type: 'ajax',
-			method: 'get',
-			url: baseUrl + "GrupoEmpresaController/getBgCert",
-			async: false,
-			dataType: 'json',
-			success: function(data){
+		//slcertificado selected data-bgimg1
+		var selectedOption = $('#slcertificado').find('option:selected');
+    	var dataBgfirst = selectedOption.attr('data-bgimg1');
+		var dataBgsecond = selectedOption.attr('data-bgimg2');
+		$('input[name=txtnombgcert]').val(dataBgfirst);
+		$('input[name=img_bg_certificado_dos]').val(dataBgsecond);
+		
+		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+dataBgfirst+'" style="width: 100%;height: auto;" ></img></a>');
 
-				$('input[name=txtnombgcert]').val(data.bg_cerficado_imagen);
-				$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+data.bg_cerficado_imagen+'" style="width: 100%;height: auto;" ></img></a>');
+		// $.ajax({
+		// 	type: 'ajax',
+		// 	method: 'get',
+		// 	url: baseUrl + "GrupoEmpresaController/getBgCert",
+		// 	async: false,
+		// 	dataType: 'json',
+		// 	success: function(data){
+
+		// 		$('input[name=txtnombgcert]').val(data.bg_cerficado_imagen);
+		// 		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+data.bg_cerficado_imagen+'" style="width: 100%;height: auto;" ></img></a>');
 			
-			},
-			error: function(){
-				 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");
-			}
-		});
+		// 	},
+		// 	error: function(){
+		// 		 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");
+		// 	}
+		// });
 
 	});
 
@@ -1151,5 +1180,27 @@ function fncProm() {
     	$('select#slcondicion').val('0');
     	$('#txtsmscond').text('-------------');
     }
+}
 
-} 
+//slcertificado
+$('#slcertificado').on('change', function(){
+	var selectedOption = $(this).find('option:selected');
+	var bgimg1 = selectedOption.data('bgimg1');
+	var bgimg2 = selectedOption.data('bgimg2');
+	$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+bgimg1+'" style="width: 100%; height: auto;"></a>');
+
+	$('input[name=txtnombgcert]').val(bgimg1);
+	$('input[name=img_bg_certificado_dos]').val(bgimg2);
+		
+
+});
+
+//logo_cliente hidden dvempresa
+$('input[name=logo_cliente]').on('change', function(){
+	var val = $(this).val();
+	if(val=='no'){
+		$('#dvempresa').addClass('hidden');
+	}else{
+		$('#dvempresa').removeClass('hidden');
+	}
+});

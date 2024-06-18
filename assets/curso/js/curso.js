@@ -720,6 +720,8 @@ $(function(){
 
 	tinymce.init({
 		selector: '#textomodulo',  // textomodulo
-		plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+		plugins: 'advlist autolink lists link charmap preview anchor pagebreak code', // Incluir el plugin code
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
 		toolbar_mode: 'floating',
+		codesample_editable: true,
 	});

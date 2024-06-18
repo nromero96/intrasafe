@@ -70,4 +70,56 @@ class SettingModel extends CI_Model
 		}
 	}
 
+	public function showAllModelCertificado(){
+		$this->db->order_by('id','asc');
+		$query = $this->db->get('modelo_certificados');
+		if($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+	}
+
+	public function editModelCertificado(){
+		$id = $this->input->get('id');
+		$this->db->where('id', $id);
+		$query = $this->db->get('modelo_certificados');
+		if($query->num_rows() > 0){
+			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+	public function saveModelCertificado($field){
+		$this->db->insert('modelo_certificados',$field);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function updateModelCertificado($field){
+	    $id = $this->input->post('txtidmdcertificado');
+	    $this->db->where('id',$id);
+		$this->db->update('modelo_certificados',$field);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function getModelCertificados(){
+		$this->db->where('estado', 'activo');
+		$this->db->order_by('id','asc');
+		$query = $this->db->get('modelo_certificados');
+		if($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+	}
+
 }

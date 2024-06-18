@@ -905,9 +905,6 @@ class PdfsController extends CI_Controller {
                 // set margins
                 $pdf->SetMargins(10, PDF_MARGIN_TOP, 10);
 
-                // set auto page breaks
-                //$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
                 // set image scale factor
                 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
@@ -1072,8 +1069,62 @@ class PdfsController extends CI_Controller {
                 $pdf->writeHTMLCell($w = 0, $h = 0, $x = 241, $y = 144, $codqr, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
 
-                $pdf->lastPage();
+                // Check the condition to add the second page
+                if ($adata->mostrar_modulo == 'si') {
 
+                    // Remove default header/footer
+                    $pdf->setPrintHeader(false);
+                    $pdf->setPrintFooter(false);
+
+                    // Set margins
+                    $pdf->SetAutoPageBreak(TRUE, 0);
+                    $pdf->setFooterMargin(0);
+                    $pdf->SetMargins(0, 0, 0); // Set margins to 0 to ensure full page background
+
+                    // Set image scale factor
+                    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+                    
+                    // Set display mode
+                    $pdf->SetDisplayMode('fullpage', 'SinglePage', 'UseNone');
+
+                    // Add second page
+                    $pdf->AddPage('L', 'A4');
+
+                    // Set background image for the second page
+                    $img_file_second = base_url() . 'uploads/bgcertificado/' . $adata->img_bg_certificado_dos; // Change this to the correct image path
+                    $pdf->Image($img_file_second, 0, 0, 298, '', '', '', '', false, 300, '', false, false, 0);
+
+                    // Disable auto-page-break
+                    $pdf->SetAutoPageBreak(false, 0);
+                    $pdf->setPageMark();
+
+
+
+
+                    // Add content to the second page as needed
+                    $html_texto_nota = '<font style="text-transform: uppercase; color: #00aeda;" size="24"><b>'.$adata->promedio.'</b></font>';
+                    $html_texto_titulo = '<font style="text-transform: uppercase;" size="14"><b>CONTENIDO DEL CURSO:</b></font>';
+                    $html_texto_contenido = $adata->textomodulo;
+
+
+                    $pdf->SetFont('futuramdbt');
+                    $pdf->writeHTMLCell($w = 0, $h = 0, $x = 268, $y = 6.5, $html_texto_nota, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                    
+                    $pdf->SetFont('helvetica', 'I');
+                    $pdf->writeHTMLCell($w = 0, $h = 0, $x = 15, $y = 18, $html_texto_titulo, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+                    $pdf->SetFont('helvetica');
+                    $pdf->writeHTMLCell($w = 0, $h = 0, $x = 15, $y = 27, $html_texto_contenido, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+                    //$codigocertificado
+                    $pdf->SetFont('helvetica');
+                    $pdf->writeHTMLCell($w = 0, $h = 0, $x = 247, $y = 190, '<b><i>'.$codigocertificado.'</i></b>', $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+
+                }
+
+                // Ensure we are on the last page
+                $pdf->lastPage();
                 // ---------------------------------------------------------
 
                 //Close and output PDF document
