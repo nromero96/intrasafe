@@ -1191,7 +1191,13 @@ $('#slcertificado').on('change', function(){
 
 	$('input[name=txtnombgcert]').val(bgimg1);
 	$('input[name=img_bg_certificado_dos]').val(bgimg2);
-		
+	
+	if(selectedOption.val() != '1'){
+		$('#dvlogocliente').removeClass('hidden');
+	}else{
+		$('#dvlogocliente').addClass('hidden');
+		$('input[name=logo_cliente]').val('no');
+	}
 
 });
 

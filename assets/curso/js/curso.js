@@ -239,8 +239,12 @@ $(function(){
 				$('select[name=txtvigencia]').val(data.vigencia_curso);
 				$('textarea[name=txtdescripcion]').val(data.descripcion);
 
-				// Actualiza el contenido del editor TinyMCE
-                tinymce.get('textomodulo').setContent(data.textomodulo);
+				// Verifica si tinymce está definido y si el editor de 'textomodulo' está inicializado
+				if (tinymce && tinymce.get('textomodulo')) {
+					// Asigna un valor predeterminado si data.textomodulo es nulo o indefinido
+					var contenido = data.textomodulo !== null && data.textomodulo !== undefined ? data.textomodulo : '';
+					tinymce.get('textomodulo').setContent(contenido);
+				}
 
 				$('select[name=slcapacitador]').val(data.id_capacitador);
 				$('input[name=txtprecio]').val(data.precio);
@@ -390,9 +394,9 @@ $(function(){
 
 
 	//boton reset
-	$("#btnReset").click(function(){
-		$("#formCurso")[0].reset();
-	});
+	// $("#btnReset").click(function(){
+	// 	$("#formCurso")[0].reset();
+	// });
 
 
 	//Horarios del curso..............................//
