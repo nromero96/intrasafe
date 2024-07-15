@@ -20,8 +20,7 @@ $(document).ready(function(){
 		//Mostrar Datos de la empresa
 		if(id != ''){
 			$.ajax({
-				type: 'ajax',
-				method: 'get',
+				type: 'GET',
 				url: baseUrl + "GrupoEmpresaController/getNomEm",
 				data: {id: id},
 				async: false,
@@ -43,8 +42,7 @@ $(document).ready(function(){
 		//Mostrar Datos de la empresa
 		if(id != ''){
 			$.ajax({
-				type: 'ajax',
-				method: 'get',
+				type: 'GET',
 				url: baseUrl + "GrupoEmpresaController/getNomPn",
 				data: {id: id},
 				async: false,
@@ -66,8 +64,7 @@ $(document).ready(function(){
 	//Listar Grupos de la empresa
 	if(id != ''){
  			$.ajax({
-				type: 'ajax',
-				method: 'get',
+				type: 'GET',
 				url: baseUrl + "GrupoEmpresaController/showAllForEmpresa",
 				data: {id: id},
 				async: false,
@@ -170,8 +167,7 @@ $(function(){
 		$('#formreablistalum').attr('action', baseUrl + 'GrupoEmpresaController/reabrirAlumnos');
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/verGrupoDetalle",
 			data: {id: id_g},
 			async: false,
@@ -216,8 +212,7 @@ $(function(){
 		.then((willDelete) => {
 		  	if (willDelete) {
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					async: false,
 					url: baseUrl + "GrupoEmpresaController/deleteGrupo",
 					data:{idg:id_g},
@@ -269,8 +264,7 @@ $(function(){
 
 		if(resultad=='12'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				type:'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -315,8 +309,7 @@ $(function(){
 
 		if(resultad=='12'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				type:'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -339,8 +332,7 @@ $(function(){
 	function countAlumnoPorGrupo(getidgrupo){
 	var idg=getidgrupo;
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "emp/GrupoController/countAlumnoPorGrupo",
 			data:{id:idg},
 			async: false,
@@ -388,6 +380,11 @@ $(function(){
 		$('#modaladdalumnoagrupo').modal('show');
 		$('#modaladdalumnoagrupo').find('.tit-modal').text('Agregar Alumno al Grupo');
 		$('#formAddAlumnoGrupo').attr('action', baseUrl + 'emp/GrupoController/saveAlumnoAGrupo');
+
+		$('#txtididalumno').val('');
+		$('#previewimg1').html('');
+
+
 	});
 
 	var options={
@@ -450,8 +447,7 @@ $(function(){
 		var id_grupo = $("#texididgrupo").val();
 		var id_alumno = $("#txtididalumno").val();
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/verifAlumEnGrupo",
 			data: {idgrupo: id_grupo, idalumno:id_alumno},
 			async: false,
@@ -470,8 +466,7 @@ $(function(){
 					var id_grupo = $("#texididgrupo").val(); //Data para enviar a la funcion
 
 					$.ajax({
-						type: 'ajax',
-                        method: 'post',
+						type: 'POST',
                         url: url,
                         data: formData,
                         cache: false,
@@ -511,8 +506,7 @@ $(function(){
 	function showAllAlumnoGrupo(getidgrupo){
 	var idg=getidgrupo;
 	$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/showAlumnoIEnGrupo",
 			data:{id:idg},
 			async: false,
@@ -631,6 +625,7 @@ $(function(){
 
 					html +='<tr>'+
 								'<td>'+ num++ +'</td>'+
+								'<td><img src="'+baseUrl+'/uploads/fotos/'+data[i].fotoperfil+'" class="img-circle" style="width: 30px; height: 30px;"></td>'+
 								'<td>'+data[i].numerodocumento+'</td>'+
 								'<td>'+data[i].apellidos+'</td>'+
 								'<td>'+data[i].nombres+'</td>'+
@@ -688,8 +683,7 @@ $(function(){
 		//...........
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/editAlumnoNota",
 			data: {id: id},
 			async: false,
@@ -741,8 +735,7 @@ $(function(){
 		.then((willDelete) => {
 		  if(willDelete){
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					url: baseUrl + "GrupoEmpresaController/deleteCertificado",
 					data: {idag: idalgp},
 					async: false,
@@ -783,8 +776,7 @@ $(function(){
 		.then((willDelete) => {
 		  if (willDelete) {
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					async: false,
 					url: baseUrl + "emp/GrupoController/deleteAlumnoDelCurso",
 					data:{id:idAlGr},
@@ -820,8 +812,7 @@ $(function(){
 		var id_grupo = $("#texididgrupo").val();
 
 			$.ajax({
-				type:'ajax',
-				method: 'post',
+				type:'POST',
 				url: url,
 				data: formData,
 				cache: false,
@@ -859,8 +850,7 @@ $(function(){
 		var idAlGrup = $(this).attr('data');
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/getDataAlumForCert",
 			data: {idag: idAlGrup},
 			async: false,
@@ -871,8 +861,7 @@ $(function(){
 
 				//Ultimo Certificado del serie
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					url: baseUrl + "Grp_csController/getUltimoCertificado?fechaserie="+data.fechaserie,
 					async: false,
 					dataType: 'json',
@@ -904,8 +893,7 @@ $(function(){
 		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+dataBgfirst+'" style="width: 100%;height: auto;" ></img></a>');
 
 		// $.ajax({
-		// 	type: 'ajax',
-		// 	method: 'get',
+		// 	type: 'GET',
 		// 	url: baseUrl + "GrupoEmpresaController/getBgCert",
 		// 	async: false,
 		// 	dataType: 'json',
@@ -937,8 +925,7 @@ $(function(){
 				swal('Debe ingresar como minimo 3 numero');
 			}else{
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					url: baseUrl + "GrupoEmpresaController/verificarCodigoCertificado",
 					data: {codcert: codigocert},
 					async: false,
@@ -978,8 +965,7 @@ $(function(){
 
 								if(resultad=='123'){
 									$.ajax({
-										type:'ajax',
-										method: 'post',
+										type:'POST',
 										url: url,
 										data: data,
 										async: false,
@@ -1012,8 +998,7 @@ $(function(){
 		var idcurso = $("#texididcurso").val();
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/GetListaHorario",
 			data: {idcurs: idcurso},
 			async: false,

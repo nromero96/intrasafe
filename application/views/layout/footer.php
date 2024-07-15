@@ -30,6 +30,14 @@
 
     baseUrl = "<?php echo base_url(); ?>";
 
+    const inputsToUpperCase = document.querySelectorAll('.uppercase-input');
+
+    inputsToUpperCase.forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    });
+
 </script>
 
 <!--   Core JS Files   -->

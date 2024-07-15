@@ -28,8 +28,7 @@ $(function(){
 		$('#formAlumno').attr('action', baseUrl + "AlumnoController/updateAlumno");
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "AlumnoController/editAlumno",
 			data: {id: id},
 			async: false,

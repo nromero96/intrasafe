@@ -45,13 +45,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating form-group-no" id="dvapellidos">
                                                     <label class="control-label">Apellidos: <span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtapellidos" required>
+                                                    <input type="text" class="form-control uppercase-input" name="txtapellidos" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating form-group-no" id="dvnombres">
                                                     <label class="control-label">Nombres: <span class="req-ast">*</span></label>
-                                                    <input type="text" class="form-control" name="txtnombres" required>
+                                                    <input type="text" class="form-control uppercase-input" name="txtnombres" required>
                                                 </div>
                                             </div>
                                         </div>

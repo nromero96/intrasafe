@@ -65,13 +65,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group label-floating" id="dvapelidosalumn">
                                             <label class="control-label">Apellidos: <span class="req-ast">*</span></label>
-                                            <input type="text" class="form-control" name="txtapellidos" id="idtxtapellidos" required>
+                                            <input type="text" class="form-control uppercase-input" name="txtapellidos" id="idtxtapellidos" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group label-floating" id="dvnomalumn">
                                             <label class="control-label">Nombres: <span class="req-ast">*</span></label>
-                                            <input type="text" class="form-control" name="txtnombres" id="idtxtnombres" required>
+                                            <input type="text" class="form-control uppercase-input" name="txtnombres" id="idtxtnombres" required>
                                         </div>
                                     </div>
                                 </div>
@@ -394,6 +394,7 @@
                                             <thead class="">
                                                 <tr>
                                                     <th><b>N°</b></th>
+                                                    <th><b>Foto</b></th>
                                                     <th><b>N° Documento</b></th>
                                                     <th><b>Apellidos</b></th>
                                                     <th><b>Nombres</b></th>
