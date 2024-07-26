@@ -28,6 +28,8 @@ $(document).ready(function(){
 				success: function(data){
 					$('#txtnomemp').text(data.razonsocial);
 					$('#ruccliente').text(data.ruc);
+					$('#logo_emp').val(data.logo_emp);
+					$('#imglogoempcertif, #logoimghd').attr('src', baseUrl + 'uploads/logo-empresas/' + data.logo_emp);
 				},
 				error:function(){
 					swal("¡Ups!", "Algo salió mal!. Por favor refresque la página", "error");
@@ -50,6 +52,8 @@ $(document).ready(function(){
 				success: function(data){
 					$('#txtnompna').text(data.nombrecontacto+' '+data.apellidoscontacto);
 					$('#dnicliente').text(data.ruc);
+					$('#logo_emp').val(data.logo_emp);
+					$('#imglogoempcertif, #logoimghd').attr('src', baseUrl + 'uploads/logo-empresas/' + data.logo_emp);
 				},
 				error:function(){
 					swal("¡Ups!", "Algo salió mal!. Por favor refresque la página", "error");
@@ -892,22 +896,6 @@ $(function(){
 		
 		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+dataBgfirst+'" style="width: 100%;height: auto;" ></img></a>');
 
-		// $.ajax({
-		// 	type: 'GET',
-		// 	url: baseUrl + "GrupoEmpresaController/getBgCert",
-		// 	async: false,
-		// 	dataType: 'json',
-		// 	success: function(data){
-
-		// 		$('input[name=txtnombgcert]').val(data.bg_cerficado_imagen);
-		// 		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+data.bg_cerficado_imagen+'" style="width: 100%;height: auto;" ></img></a>');
-			
-		// 	},
-		// 	error: function(){
-		// 		 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");
-		// 	}
-		// });
-
 	});
 
 
@@ -972,7 +960,8 @@ $(function(){
 										dataType:'json',
 										success: function(respuesta){
 											$('#modalgnrarcert').modal('hide');
-											$('#formgnrarcert')[0].reset();
+											$('#txtcodigoc').val('');
+											
 											swal("¡Echo!", "El certificado fue generado!.", "success");
 											showAllAlumnoGrupo(id_grupo);
 										},

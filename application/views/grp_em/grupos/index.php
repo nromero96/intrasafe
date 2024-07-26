@@ -2,7 +2,9 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-12 text-center"><span style="font-size: 15px;"><b>EMPRESA: </b> <span id="txtnomemp"><img class="ldimg" src="<?php echo base_url();?>assets/img/load-11.gif"></span> | <b>RUC: </b><span id="ruccliente"><img class="ldimg" src="<?php echo base_url();?>assets/img/load-11.gif"></span></span></div>
+                <div class="col-md-12 text-center">
+                    <span style="font-size: 15px;"><b>EMPRESA: </b> <span id="txtnomemp"><img class="ldimg" src="<?php echo base_url();?>assets/img/load-11.gif"></span> | <b>RUC: </b><span id="ruccliente"><img class="ldimg" src="<?php echo base_url();?>assets/img/load-11.gif"></span></span>
+                </div>
                 <input type="hidden" name="tpcliente" id="tpcliente">
             </div>
             <!--Row  Lista Grupos...........................-->
@@ -12,6 +14,7 @@
                         <div class="card">
                             <div class="card-header" data-background-color="blue">
                                 <h4 class="title" id="tituloTab">Lista de Grupos</h4>
+                                <img src="<?php echo base_url();?>assets/img/load-11.gif" id="logoimghd" class="imglogogp">
                             </div>
                             <div class="card-content" id="showgrupos">
                                     <!--Lista de grupos-->
@@ -277,7 +280,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content card">
                             <div class="card-header" data-background-color="blue">
-                                <p class="text-center" style="font-size: 18px"><b>Certificado para el alumno</b></p>
+                                <p class="text-center" style="font-size: 18px; margin-bottom: 0px;"><b>Certificado para el alumno</b></p>
                             </div>
                             <div class="modal-body" style="padding-top: 0px !important;">
                                 <div class="row">
@@ -330,7 +333,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-group hidden" id="dvempresa" style="margin-top: 5px;">
-                                                    <input type="text" name="empresa" class="form-control" placeholder="Buscar Empresa..." id="empresa">
+                                                    <img src="" id="imglogoempcertif" style="max-width: 80px;">
                                                 </div>
                                             </div>
                                         </div>

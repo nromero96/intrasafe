@@ -14,6 +14,7 @@
                         <div class="card">
                             <div class="card-header" data-background-color="blue">
                                 <h4 class="title" id="tituloTab">Lista de Grupos</h4>
+                                <img src="<?php echo base_url();?>assets/img/load-11.gif" id="logoimghd" class="imglogogp">
                             </div>
                             <div class="card-content" id="showgrupos">
                                     <!--Lista de grupos-->
@@ -282,7 +283,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-group hidden" id="dvempresa" style="margin-top: 5px;">
-                                                    <input type="text" name="empresa" class="form-control" placeholder="Buscar Empresa..." id="empresa">
+                                                    <img src="" id="imglogoempcertif" style="max-width: 80px;">
                                                 </div>
                                             </div>
                                         </div>

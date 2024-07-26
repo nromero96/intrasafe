@@ -181,7 +181,7 @@ class GrupoEmpresaModel extends CI_Model
 
 	public function getNomEm(){
 		$idem=$this->input->get('id');
-		$this->db->select('razonsocial, ruc');
+		$this->db->select('razonsocial, ruc, logo_emp');
 		$this->db->where('id_empresa', $idem);
 		$query = $this->db->get('empresas');
 		if($query->num_rows() > 0){
@@ -194,7 +194,7 @@ class GrupoEmpresaModel extends CI_Model
 
 	public function getNomPn(){
 		$idem=$this->input->get('id');
-		$this->db->select('nombrecontacto, apellidoscontacto, ruc');
+		$this->db->select('nombrecontacto, apellidoscontacto, ruc, logo_emp');
 		$this->db->where('id_empresa', $idem);
 		$query = $this->db->get('empresas');
 		if($query->num_rows() > 0){
@@ -203,21 +203,6 @@ class GrupoEmpresaModel extends CI_Model
 			return false;
 		}
 	}
-
-
-	// public function saveCertif(){
-	// 	$idalumnogrupo = $this->input->post('txtidalumnogrupo');
-	// 	$sericert = $this->input->post('txtsericert');
-	// 	$nombgcert = $this->input->post('txtnombgcert');
-
-	// 	$query= $this->db->query("CALL sp_guardar_certificado(".$idalumnogrupo.",'".$sericert."','".$nombgcert."')");
-
-	// 	if($this->db->affected_rows() > 0){
-	// 		return true;
-	// 	}else{
-	// 		return false;
-	// 	}
-	// }
 
 
 	//Actualizar estado grupo y alumnos
@@ -285,8 +270,14 @@ class GrupoEmpresaModel extends CI_Model
 
 		$id_modelcert = $this->input->post('slcertificado'); 
 		$img_bg_certificado_dos = $this->input->post('img_bg_certificado_dos');
-		$logo_emp = $this->input->post('logo_emp');
 		$mostrar_modulo = $this->input->post('mostrar_modulo');
+
+		$show_logo_cliente = $this->input->post('logo_cliente');
+		if($show_logo_cliente == 'si'){
+			$logo_emp = $this->input->post('logo_emp');
+		}else{
+			$logo_emp = '';
+		}
 	
 		// Iniciar la transacción
 		$this->db->trans_start();

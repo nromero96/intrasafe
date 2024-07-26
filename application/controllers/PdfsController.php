@@ -470,385 +470,6 @@ class PdfsController extends CI_Controller {
     
         }
 
-
-        //Certificado sín descripción
-        public function getCertAlumno(){
-
-                $this->load->library('Pdf');
-
-                $fechcaduc = $this->input->get('fchcad');
-                $adata = $this->PdfsModel->getDataCertificado();
-                $datagerente = $this->PdfsModel->getDataGerente();
-
-                $idcs = $this->input->get('idcs');
-                $fechascurso = $this->PdfsModel->getFechasCurso($idcs);
-
-                if($adata->cod_cip_capacitador == ''){
-                    $cod_cip ='';
-                }
-                if ($adata->cod_cip_capacitador != '') {
-                    $cod_cip ='Reg. CIP N° '.$adata->cod_cip_capacitador.'';
-                }
-
-               // create new PDF document
-                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-                // set document information
-                $pdf->SetCreator(PDF_CREATOR);
-                $pdf->SetAuthor('SAFE SCAFFOLDING INDUSTRY S.A.C');
-                $pdf->SetTitle('Certificado para '.$adata->nombres.' '.$adata->apellidos.'');
-                $pdf->SetSubject('Información');
-
-                // remove default header/footer
-                $pdf->setPrintHeader(false);
-                $pdf->setPrintFooter(false);
-
-                // set default monospaced font
-                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-                // set margins
-                $pdf->SetMargins(10, PDF_MARGIN_TOP, 10);
-
-                // set auto page breaks
-                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-                // set image scale factor
-                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-                // set some language-dependent strings (optional)
-                if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-                    require_once(dirname(__FILE__).'/lang/eng.php');
-                    $pdf->setLanguageArray($l);
-                }
-
-                // ---------------------------------------------------------
-
-                $pdf->SetDisplayMode('fullpage', 'SinglePage', 'UseNone');
-
-
-                $pdf->AddPage('L', 'A4');
-
-                // get the current page break margin
-                $bMargin = $pdf->getBreakMargin();
-                // get current auto-page-break mode
-                $auto_page_break = $pdf->getAutoPageBreak();
-                // disable auto-page-break
-                $pdf->SetAutoPageBreak(false, 0);
-                // set bacground image
-                //$bg_cerficado_imagen = 'certificado-m32.jpg';
-
-                $img_file = base_url().'uploads/bgcertificado/'.$adata->img_bg_certificado.'';
-                $pdf->Image($img_file, 0, 0, 298, '', '', '', '', false, 300, '', false, false, 0);
-                // restore auto-page-break status
-                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
-                // set the starting point for the page content
-                $pdf->setPageMark();
-
-                //Función generador de Numero
-
-                if($adata->ct_serie == 'SAFESI-C18-'){
-                    $codigocertificado = ''.$adata->ct_serie.''.$adata->ct_correlativo.'';
-                }else{
-                    $codigocertificado = 'COD: '.$adata->ct_serie.''.$adata->ct_correlativo.'';
-                }
-
-                $html = '';
-                $html2 = '';
-                $html3 = '';
-                $html4 = '';
-                $html5 = '';
-                $html6 = '';
-                $html7 = '';
-                $firmacapa = '';
-                $firmagerente = '';
-                $codcert = '';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-
-                // set font
-                $html .= '<h1 align="center"><font size="30" style="text-transform: uppercase;"><b>'.$adata->nombres.' '.$adata->apellidos.'</b></font></h1>';
-
-                $html2 .= '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
-                $html3 .= '<p align="center"><font size="13">Por haber aprobado satisfactoriamente el curso realizado el '.$fechascurso->vAcumulado.'.</font></p>';
-                $html4 .= '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
-                $html5 .= '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
-                $html5 .= '<br>';
-                $html5 .= '<br>';
-                $html5 .= '<br>';
-                $html5 .= '<br>';
-                $html6 .= '<p>Emisión: '.$adata->fechainiciocertificado.'<br>Válido hasta: <b>'.$adata->fecha_vigenica.'</b></p>';
-
-                $codcert .= '<p><font size="13" style="text-transform: uppercase;"><b>'.$adata->tipodocumento.': '.$adata->numerodocumento.'</b><br><b>NOTA: '.$adata->promedio.'</b><br><b>'.$codigocertificado.'</b></font></p>';
-
-                $firmacapa .='<img width="170"  src="http://intranet.safesi.com/uploads/firmas/'.$adata->firma_capacitador.'">';
-
-                $firmagerente .= '<img width="230" src="http://intranet.safesi.com/uploads/firmas/'.$datagerente->img_firma_gerente.'">';
-                
-                $html7 .='<br>';
-                $html7 .='<br>';
-                $html7 .='<table width="600">
-                            <tr>
-                                <td>
-                                    <p align="center"><br><br>_____________________________<br>
-                                        <font style="text-transform: uppercase;" size="9">'.$adata->nombres_capacitador.' '.$adata->apellidos_capacitador.'<br>'.$adata->profesion_capacitador.'<br>'.$cod_cip.'</font>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p align="center"><br><br>_____________________________<br>
-                                        <font style="text-transform: uppercase;" size="9">'.$datagerente->nombres_gerente.' '.$datagerente->apellidos_gerente.'<br>GERENTE GENERAL</font>
-                                    </p>
-                                </td>
-                            </tr>
-                          </table>';
-
-
-                // Imprimimos el texto con writeHTMLCell()
-                $pdf->SetFont('futuramdbt', 20);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('helvetica', 8);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('kalinga', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html3, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 21);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html4, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html5, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('kalinga', 12);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = '', $html6, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 6);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 72, $y = '', $html7, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-                //Ubicación Firma del gerente
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 170, $y = 145, $firmagerente, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-                $pdf->SetFont('futuramdbt', 13);
-                //Ubicación dni,nota y codigo certificado
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 165, $codcert, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-
-                //Ubicación Firma del capacitador
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 87, $y = 143, $firmacapa, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-                $pdf->lastPage();
-
-                // ---------------------------------------------------------
-
-                //Close and output PDF document
-                $nombre_archivo = utf8_decode('certificado-de-'.$adata->nombres.'.pdf');
-                $pdf->Output($nombre_archivo, 'I');
-
-                //============================================================+
-                // END OF FILE
-                //============================================================+
-                    
-            
-
-        }
-
-
-        //Certificado con descripción============================================================+
-        public function getCertDescripAlumno(){
-
-                $this->load->library('Pdf');
-
-                $fechcaduc = $this->input->get('fchcad');
-                $adata = $this->PdfsModel->getDataCertificado();
-                $datagerente = $this->PdfsModel->getDataGerente();
-
-                $idcs = $this->input->get('idcs');
-                $fechascurso = $this->PdfsModel->getFechasCurso($idcs);
-
-                if($adata->cod_cip_capacitador == ''){
-                    $cod_cip ='';
-                }
-                if ($adata->cod_cip_capacitador != '') {
-                    $cod_cip ='Reg. CIP N° '.$adata->cod_cip_capacitador.'';
-                }
-
-               // create new PDF document
-                $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-                // set document information
-                $pdf->SetCreator(PDF_CREATOR);
-                $pdf->SetAuthor('SAFE SCAFFOLDING INDUSTRY S.A.C');
-                $pdf->SetTitle('Certificado para '.$adata->nombres.' '.$adata->apellidos.'');
-                $pdf->SetSubject('Información');
-
-                // remove default header/footer
-                $pdf->setPrintHeader(false);
-                $pdf->setPrintFooter(false);
-
-                // set default monospaced font
-                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-                // set margins
-                $pdf->SetMargins(10, PDF_MARGIN_TOP, 10);
-
-                // set auto page breaks
-                $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
-                // set image scale factor
-                $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-                // set some language-dependent strings (optional)
-                if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-                    require_once(dirname(__FILE__).'/lang/eng.php');
-                    $pdf->setLanguageArray($l);
-                }
-
-                // ---------------------------------------------------------
-
-                $pdf->SetDisplayMode('fullpage', 'SinglePage', 'UseNone');
-
-
-                $pdf->AddPage('L', 'A4');
-
-                // get the current page break margin
-                $bMargin = $pdf->getBreakMargin();
-                // get current auto-page-break mode
-                $auto_page_break = $pdf->getAutoPageBreak();
-                // disable auto-page-break
-                $pdf->SetAutoPageBreak(false, 0);
-                // set bacground image
-                //$bg_cerficado_imagen = 'certificado-m32.jpg';
-
-                $img_file = base_url().'uploads/bgcertificado/'.$adata->img_bg_certificado.'';
-                $pdf->Image($img_file, 0, 0, 298, '', '', '', '', false, 300, '', false, false, 0);
-                // restore auto-page-break status
-                $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
-                // set the starting point for the page content
-                $pdf->setPageMark();
-
-                //Función generador de Numero
-
-                if($adata->ct_serie == 'SAFESI-C18-'){
-                    $codigocertificado = ''.$adata->ct_serie.''.$adata->ct_correlativo.'';
-                }else{
-                    $codigocertificado = 'COD: '.$adata->ct_serie.''.$adata->ct_correlativo.'';
-                }
-
-                $html = '';
-                $html2 = '';
-                $html3 = '';
-                $html4 = '';
-                $html5 = '';
-                $html6 = '';
-                $html7 = '';
-                $descripcion = '';
-                $firmacapa = '';
-                $firmagerente = '';
-                $codcert = '';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-
-                // set font
-                $html .= '<h1 align="center"><font size="30" style="text-transform: uppercase;"><b>'.$adata->nombres.' '.$adata->apellidos.'</b></font></h1>';
-
-                $html2 .= '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
-                $html3 .= '<p align="center"><font size="13">Por haber aprobado satisfactoriamente el curso realizado el '.$fechascurso->vAcumulado.'.</font></p>';
-                $html4 .= '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
-                $html5 .= '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
-                
-
-                $descripcion .= '<table width="855" >
-                					<tr>
-                						
-                						<td align="center" height="51">'.$adata->descripcion.'</td>
-                					</tr>
-                				</table>';
-                $descripcion .= '<br>';
-         
-                $html6 .= '<p>Emisión: '.$adata->fechainiciocertificado.'<br>Válido hasta: <b>'.$adata->fecha_vigenica.'</b></p>';
-
-                $codcert .= '<p><font size="13" style="text-transform: uppercase;"><b>'.$adata->tipodocumento.': '.$adata->numerodocumento.'</b><br><b>NOTA: '.$adata->promedio.'</b><br><b>'.$codigocertificado.'</b></font></p>';
-
-                $firmacapa .='<img width="170"  src="http://intranet.safesi.com/uploads/firmas/'.$adata->firma_capacitador.'">';
-
-                $firmagerente .= '<img width="230" src="http://intranet.safesi.com/uploads/firmas/firma-gerente.png">';
-                
-                $html7 .='<table width="600">
-                            <tr>
-                                <td>
-                                    <p align="center"><br><br>_____________________________<br>
-                                        <font style="text-transform: uppercase;" size="9">'.$adata->nombres_capacitador.' '.$adata->apellidos_capacitador.'<br>'.$adata->profesion_capacitador.'<br>'.$cod_cip.'</font>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p align="center"><br><br>_____________________________<br>
-                                        <font style="text-transform: uppercase;" size="9">'.$datagerente->nombres_gerente.' '.$datagerente->apellidos_gerente.'<br>GERENTE GENERAL</font>
-                                    </p>
-                                </td>
-                            </tr>
-                          </table>';
-
-
-                // Imprimimos el texto con writeHTMLCell()
-                $pdf->SetFont('futuramdbt', 20);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('helvetica', 8);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('kalinga', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html3, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 21);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html4, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html5, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('kalinga', 12);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = '', $descripcion, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('kalinga', 12);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = '', $html6, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->SetFont('futuramdbt', 6);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 72, $y = '', $html7, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-                //Ubicación Firma del gerente
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 170, $y = 150, $firmagerente, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-                $pdf->SetFont('futuramdbt', 13);
-                //Ubicación dni,nota y codigo certificado
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 165, $codcert, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-
-                //Ubicación Firma del capacitador
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 87, $y = 148, $firmacapa, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-
-                $pdf->lastPage();
-
-                // ---------------------------------------------------------
-
-                //Close and output PDF document
-                $nombre_archivo = utf8_decode('certificado-de-'.$adata->nombres.'.pdf');
-                $pdf->Output($nombre_archivo, 'I');
-
-                //============================================================+
-                // END OF FILE
-                //============================================================+          
-
-        }
-        
-        
-        
-        
-        
         
         
         //Certificado Nueva Version============================================================+
@@ -945,35 +566,20 @@ class PdfsController extends CI_Controller {
                     $codigocertificado = 'COD: '.$adata->ct_serie.''.$adata->ct_correlativo.'';
                 }
 
-                $html = '';
-                $html2 = '';
-                $html3 = '';
-                $html4 = '';
-                $html5 = '';
-                $html6 = '';
-                $html7 = '';
                 $descripcion = '';
-                $firmacapa = '';
-                $firmagerente = '';
-                $codcert = '';
-                $codqr = '';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
-                $html .='<br>';
 
+                if($adata->logo_emp == '' || $adata->logo_emp == NULL){
+                    $logocliente = '';
+                }else{
+                    $logocliente = '<img width="155" height="155" src="'.base_url().'uploads/logo-empresas/'.$adata->logo_emp.'">';
+                }
                 // set font
-                $html .= '<h1 align="center"><font size="30" style="text-transform: uppercase;"><b>'.$adata->nombres.' '.$adata->apellidos.'</b></font></h1>';
+                $html = '<h1 align="center"><font size="30" style="text-transform: uppercase;"><b>'.$adata->nombres.' '.$adata->apellidos.'</b></font></h1>';
 
-                $html2 .= '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
-                $html3 .= '<p align="center"><font size="13">'.$adata->desc_tipocertificado.' '.$fechascurso->vAcumulado.'.</font></p>';
-                $html4 .= '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
-                $html5 .= '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
+                $html2 = '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
+                $html3 = '<p align="center"><font size="13">'.$adata->desc_tipocertificado.' '.$fechascurso->vAcumulado.'.</font></p>';
+                $html4 = '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
+                $html5 = '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
                 
                 if($adata->mostrardescripcion == '0' || $adata->descripcion =='' ){
                     $descripcion .= '<table width="855" >
@@ -1000,7 +606,7 @@ class PdfsController extends CI_Controller {
                     $certivigenvia = 'Válido hasta: <b>'.$adata->fecha_vigenica.'</b>';
                 }
          
-                $html6 .= '<p>Emisión: '.$adata->fechainiciocertificado.'<br>'.$certivigenvia.'</p>';
+                $html6 = '<p>Emisión: '.$adata->fechainiciocertificado.'<br>'.$certivigenvia.'</p>';
                 
                 if($adata->mostrar_nota == '1'){
                     $promedio = '<b>NOTA: '.$adata->promedio.'</b><br>';
@@ -1008,13 +614,13 @@ class PdfsController extends CI_Controller {
                     $promedio = '';
                 }
 
-                $codcert .= '<p><font size="13" style="text-transform: uppercase;">'.$promedio.'<b>'.$adata->tipodocumento.': '.$adata->numerodocumento.'</b><br><b>'.$codigocertificado.'</b></font></p>';
+                $codcert = '<p><font size="13" style="text-transform: uppercase;">'.$promedio.'<b>'.$adata->tipodocumento.': '.$adata->numerodocumento.'</b><br><b>'.$codigocertificado.'</b></font></p>';
 
-                $firmacapa .='<img width="170"  src="https://intranet.safesi.com/uploads/firmas/'.$adata->firma_capacitador.'">';
+                $firmacapa ='<img width="170"  src="https://intranet.safesi.com/uploads/firmas/'.$adata->firma_capacitador.'">';
 
-                $firmagerente .= '<img width="230" src="https://intranet.safesi.com/uploads/firmas/'.$adata->img_firma_gerente.'">';
+                $firmagerente = '<img width="230" src="https://intranet.safesi.com/uploads/firmas/'.$adata->img_firma_gerente.'">';
                 
-                $html7 .='<table width="600">
+                $html7 ='<table width="600">
                             <tr>
                                 <td>
                                     <p align="center"><br><br>_____________________________<br>
@@ -1029,44 +635,47 @@ class PdfsController extends CI_Controller {
                             </tr>
                           </table>';
                 
-                $codqr .= '<img width="95" src="https://intranet.safesi.com/uploads/qr-img-vc.png">';
+                $codqr = '<img width="95" src="https://intranet.safesi.com/uploads/qr-img-vc.png">';
 
 
                 // Imprimimos el texto con writeHTMLCell()
+
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 230, $y = 17.50, $logocliente, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
                 $pdf->SetFont('futuramdbt', 20);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 10, $y = 79.40, $html, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('helvetica', 8);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 10, $y = 92.80, $html2, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('kalinga', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html3, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 10, $y = 98, $html3, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('futuramdbt', 21);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html4, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 10, $y = 103.70, $html4, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('futuramdbt', 16);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html5, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 10, $y = 112.90, $html5, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('kalinga', 12);
                 
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = '', $descripcion, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 119.90, $descripcion, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 
                 $pdf->SetFont('kalinga', 12);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = '', $html6, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 139.80, $html6, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->SetFont('futuramdbt', 6);
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 72, $y = 156, $html7, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 72, $y = 156, $html7, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
 
                 //Ubicación Firma del gerente
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 170, $y = 155, $firmagerente, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 170, $y = 155, $firmagerente, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
                 $pdf->SetFont('futuramdbt', 13);
                 //Ubicación dni,nota y codigo certificado
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 165, $codcert, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 26, $y = 165, $codcert, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
 
 
                 //Ubicación Firma del capacitador
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 87, $y = 153, $firmacapa, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 87, $y = 153, $firmacapa, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
                 //Ubicación Codigo QR
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 241, $y = 144, $codqr, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = 241, $y = 144, $codqr, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
 
                 // Check the condition to add the second page
@@ -1135,7 +744,7 @@ class PdfsController extends CI_Controller {
                 // END OF FILE
                 //============================================================+          
 
-        }
+        } 
         
         
         

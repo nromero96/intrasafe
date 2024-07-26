@@ -221,6 +221,16 @@
     border-color: #f44336;
 }
 
+.imglogogp{
+    background: #fff;
+    width: 47px !important;
+    height: 47px !important;
+    position: absolute;
+    right: 20px;
+    top: -15px;
+    border-radius: 5px;
+}
+
 
 /*!
 Animate.css - http://daneden.me/animate
@@ -5235,6 +5245,7 @@ footer .btn {
 
 .card .card-header .title {
     color: #FFFFFF;
+    margin-bottom: 0px !important;
 }
 
 .card .card-header .category {
