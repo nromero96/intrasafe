@@ -13,6 +13,7 @@ class Grp_csController extends CI_Controller
 		$this->load->model("CursoModel");
 		$this->load->model("CertificadoModel");
 		$this->load->helper(array('form', 'url'));
+		$this->load->model("SettingModel");
 	}
 
 	public function index(){
@@ -33,10 +34,11 @@ class Grp_csController extends CI_Controller
 	public function viewCurso(){
 		$this->load->library('session');
 		if($this->session->userdata('user')){
+			$data['modelcertificados'] = $this->SettingModel->getModelCertificados();
 			$this->load->view('layout/header');
 			$this->load->view('layout/topbar');
 			$this->load->view('layout/sidebar');
-			$this->load->view('grp_cs/curso/index');
+			$this->load->view('grp_cs/curso/index',$data);
 			$this->load->view('layout/footer');
 		}else{
 			redirect(base_url(), 'refresh');

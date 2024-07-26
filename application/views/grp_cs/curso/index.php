@@ -155,8 +155,11 @@
 
                                         <div class="form-group" style="margin-top: 5px;">
                                             <select name="slcertificado" id="slcertificado" class="form-control">
-                                                <option value="1">Certificado de General</option>
-                                                <option value="2">Certificado de Empresas</option>
+                                                <?php 
+                                                foreach ($modelcertificados as $key => $value) {
+                                                    echo '<option value="'.$value->id.'" data-bgimg1="'.$value->bg_imagen_first.'" data-bgimg2="'.$value->bg_imagen_second.'">'.$value->nombre.'</option>';
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
@@ -165,6 +168,9 @@
                                     	</div>
                                         <input type="hidden" name="txtidalumnogrupo" id="txtidalumnogrupo">
                                 		<input type="hidden" name="txtnombgcert" id="txtnombgcert">
+                                            
+                                        <input type="hidden" name="img_bg_certificado_dos" id="img_bg_certificado_dos">
+                                        <input type="hidden" name="logo_emp" id="logo_emp">
 
                                         <div class="row">
                                             <div class="col-md-6 text-center">
@@ -193,7 +199,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-group hidden" id="dvempresa" style="margin-top: 5px;">
-                                                    <input type="text" name="empresa" class="form-control" placeholder="Buscar Empresa..." id="empresa">
+                                                    <img src="" id="imglogoempcertif" style="max-width: 80px;">
                                                 </div>
                                             </div>
                                         </div>

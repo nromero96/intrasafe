@@ -403,8 +403,7 @@ $(document).ready(function(){
 		var idAlGrup = $(this).attr('data');
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/getDataAlumForCert",
 			data: {idag: idAlGrup},
 			async: false,
@@ -415,8 +414,7 @@ $(document).ready(function(){
 
 				//Ultimo Certificado del serie
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					url: baseUrl + "Grp_csController/getUltimoCertificado?fechaserie="+data.fechaserie,
 					async: false,
 					dataType: 'json',
@@ -438,22 +436,14 @@ $(document).ready(function(){
 			}
 		});
 
-		$.ajax({
-			type: 'ajax',
-			method: 'get',
-			url: baseUrl + "GrupoEmpresaController/getBgCert",
-			async: false,
-			dataType: 'json',
-			success: function(data){
-
-				$('input[name=txtnombgcert]').val(data.bg_cerficado_imagen);
-				$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+data.bg_cerficado_imagen+'" style="width: 100%;height: auto;" ></img></a>');
-			
-			},
-			error: function(){
-				 swal("¡Ups!", "Algo salió mal!. Intentelo nuevamente", "error");
-			}
-		});
+		//slcertificado selected data-bgimg1
+		var selectedOption = $('#slcertificado').find('option:selected');
+    	var dataBgfirst = selectedOption.attr('data-bgimg1');
+		var dataBgsecond = selectedOption.attr('data-bgimg2');
+		$('input[name=txtnombgcert]').val(dataBgfirst);
+		$('input[name=img_bg_certificado_dos]').val(dataBgsecond);
+		
+		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+dataBgfirst+'" style="width: 100%;height: auto;" ></img></a>');
 
 	});
 
@@ -471,8 +461,7 @@ $(document).ready(function(){
 				swal('Debe ingresar como minimo 3 numero');
 			}else{
 				$.ajax({
-					type: 'ajax',
-					method: 'get',
+					type: 'GET',
 					url: baseUrl + "GrupoEmpresaController/verificarCodigoCertificado",
 					data: {codcert: codigocert},
 					async: false,
@@ -512,8 +501,7 @@ $(document).ready(function(){
 
 								if(resultad=='123'){
 									$.ajax({
-										type:'ajax',
-										method: 'post',
+										type:'POST',
 										url: url,
 										data: data,
 										async: false,
@@ -551,8 +539,7 @@ $(document).ready(function(){
 		$('input[name=tipolist]').val(tiplist);
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			type: 'GET',
 			url: baseUrl + "GrupoEmpresaController/GetListaHorario",
 			data: {idcurs: idcurso},
 			async: false,
@@ -712,15 +699,21 @@ $(document).ready(function(){
 
 	//slcertificado
 	$('#slcertificado').on('change', function(){
-		var id = $(this).val();
-		if(id=='1'){
-			$('#dvlogocliente').addClass('hidden');
-			$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/FONDO_2021.jpg" style="width: 100%;height: auto;" ></img></a>');
-		}
-		if(id=='2'){
+		var selectedOption = $(this).find('option:selected');
+		var bgimg1 = selectedOption.data('bgimg1');
+		var bgimg2 = selectedOption.data('bgimg2');
+		$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/'+bgimg1+'" style="width: 100%; height: auto;"></a>');
+
+		$('input[name=txtnombgcert]').val(bgimg1);
+		$('input[name=img_bg_certificado_dos]').val(bgimg2);
+		
+		if(selectedOption.val() != '1'){
 			$('#dvlogocliente').removeClass('hidden');
-			$('#prvwcertbg').html('<a><img src="'+baseUrl+'uploads/bgcertificado/certificado-m322.jpg" style="width: 100%;height: auto;" ></img></a>');
+		}else{
+			$('#dvlogocliente').addClass('hidden');
+			$('input[name=logo_cliente]').val('no');
 		}
+
 	});
 
 	//logo_cliente hidden dvempresa
