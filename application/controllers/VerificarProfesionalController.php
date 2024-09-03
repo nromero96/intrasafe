@@ -27,4 +27,9 @@ class VerificarProfesionalController extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function showListCertForAlumnoInternacional(){
+		$result = $this->VerificarProfesionalModel->showListCertForAlumnoInternacional();
+		echo json_encode($result);
+	}
+
 }

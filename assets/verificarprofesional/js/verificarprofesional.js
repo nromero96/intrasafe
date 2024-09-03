@@ -48,10 +48,12 @@ function viewDataAlumno(numdni){
 
 				//Show Certificado Alumno
 				showListCertForAlumno(numdni);
+				showListCertForAlumnoInternacional(numdni);
 				
 				//Class Hidden Remove
 				$('#dvdatosalumno').removeClass('hidden');
 				$('#dvlistacertificado').removeClass('hidden');
+				$('#dvlistacertificadointernacional').removeClass('hidden');
 				$('#bxbuscador').addClass('hidden');
 				
 				
@@ -86,6 +88,7 @@ function showListCertForAlumno(numdni){
 				html +='<tr>'+
 					'<td class="txtcolorcert">'+data[i].nombrecurso+'</td>'+
 					'<td class="txtcolorcert">'+data[i].horas+' Horas</td>'+
+					'<td class="txtcolorcert">'+data[i].certifica+'</td>'+
 					'<td class="txtcolorcert">'+data[i].serie+''+data[i].correlativo+'</td>'+
 					// '<td>'+'<a class="txtcolorcert btnVCert" href="javascript:;" type="button" title="Ver Certificado" data1="'+data[i].id_alumno_grupo+'" data2="'+data[i].id_curso+'" data3="'+data[i].descripcion+'">Ver certificado</a>'+'</td>'+
 					'<td class="txtcolorcert">'+data[i].fechainiciocertificado+'</td>'+	
@@ -96,6 +99,38 @@ function showListCertForAlumno(numdni){
 					$('#liscertalumno').html('<tr><td><label>El Profesional no tiene certificado.</label></td></tr>');
 				}else{
 					$('#liscertalumno').html(html);
+				}
+				
+			},
+			error:function(){
+				swal("¡Ups!", "Algo salió mal!. Refresca la página", "error");
+			}
+		});
+}
+
+function showListCertForAlumnoInternacional(numdni){
+	$.ajax({
+		type: 'ajax',
+		method: 'get',
+		url: baseUrl + "VerificarProfesionalController/showListCertForAlumnoInternacional",
+		data:{docalumno:numdni},
+		async: false,
+		dataType: 'json',
+		success: function(data){
+			var html = '';
+			var i;
+			
+			for (i=0; i<data.length; i++){
+				html +='<tr>'+
+					'<td class="txtcolorcert">'+data[i].curso+'</td>'+
+					'<td class="txtcolorcert">'+data[i].codigo+' Horas</td>'+
+					'<td class="txtcolorcert">'+data[i].expira+'</td>'+							
+					'</tr>';
+				}
+				if(html==''){
+					$('#liscertalumnointenacional').html('<tr><td><label>El Profesional no tiene certificado internacional.</label></td></tr>');
+				}else{
+					$('#liscertalumnointenacional').html(html);
 				}
 				
 			},

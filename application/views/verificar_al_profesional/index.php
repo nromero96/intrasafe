@@ -170,7 +170,8 @@
                                     <tr>
                                         <th><b>Curso</b></th>
                                         <th><b>Duración</b></th>
-                                        <th><b>Código de certificado</b></th>
+										<th><b>Certifíca</b></th>
+                                        <th><b>Cód. de certificado</b></th>
                                         <th><b>Fecha de emisión</b></th>
                                         <th><b>Fecha de expiración</b></th>
                                     </tr>
@@ -180,7 +181,26 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>  
+                    </div>
+
+					<div class="row hidden" id="dvlistacertificadointernacional" style="margin-top: 20px; margin-bottom: 20px;">
+                        <div class="col-md-12" style="background: #ffffff;box-shadow: 0px 4px 10px -1px #b6b6b6;;">
+							<h4><b>Certificados Internacionales</b></h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><b>Curso</b></th>
+                                        <th><b>Código</b></th>
+										<th><b>Expira</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liscertalumnointenacional">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
                 
             </div>
