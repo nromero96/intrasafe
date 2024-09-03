@@ -123,7 +123,7 @@ function showListCertForAlumnoInternacional(numdni){
 			for (i=0; i<data.length; i++){
 				html +='<tr>'+
 					'<td class="txtcolorcert">'+data[i].curso+'</td>'+
-					'<td class="txtcolorcert">'+data[i].codigo+' Horas</td>'+
+					'<td class="txtcolorcert">'+data[i].codigo+'</td>'+
 					'<td class="txtcolorcert">'+data[i].expira+'</td>'+							
 					'</tr>';
 				}
