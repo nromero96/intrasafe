@@ -80,6 +80,29 @@ class CapacitadorModel extends CI_Model
  		return FALSE;
  		}
  	}
+
+
+	//delete capacitador, primero verifica si el alumno tiene cursos asignados
+	public function deleteCapacitador(){
+		// Obtener el id del capacitador
+		$id = $this->input->post('id');
+		// Verificar si el alumno tiene cursos asignados
+		$this->db->where('id_capacitador', $id);
+		$query = $this->db->get('cursos');
+	
+		if($query->num_rows() > 0){
+			return 'has_courses';
+		}else{
+			$this->db->where('id_capacitador', $id);
+			$this->db->delete('capacitadores');
+			if($this->db->affected_rows() > 0){
+				return 'true';
+			}else{
+				return 'false';
+			}
+		}
+
+	}
  	
  	
 }

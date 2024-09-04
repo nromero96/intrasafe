@@ -46,6 +46,12 @@
                                             </div>
                                         </div>
                                         <div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label">Empresa:</label>
+													<input type="text" class="form-control" id="empresa" value="" name="empresa">
+												</div>
+											</div>
                                             <div class="col-md-3">
                                                 <div class="form-group" id="expira">
                                                     <label class="control-label">Expira:</label>
@@ -126,8 +132,9 @@
                                                 <th><b>Nombres</b></th>
                                                 <th><b>Código</b></th>
                                                 <th><b>Curso</b></th>
+												<th><b>Empresa</b></th>
                                                 <th><b>Expira</b></th>
-                                                <th class="no-sort"></th>
+                                                <th class="no-sort"><b>Acciones</b></th>
                                             </thead>
                                             <!-- <tbody id="showdata">
                                                 <p class="text-center" id="loadgif"><img style="max-width: 150px;" src="<?php echo base_url();?>assets/img/load-22.gif"></p>
@@ -143,6 +150,7 @@
                                                     <td><?php echo $certificado->alumno_nombre; ?></td>
                                                     <td><?php echo $certificado->codigo; ?></td>
                                                     <td><?php echo $certificado->curso; ?></td>
+													<td><?php echo $certificado->empresa; ?></td>
                                                     <td><?php echo $certificado->expira; ?></td>
                                                     <td class="td-actions text-right">
                                                         <a href="javascript:;" type="button" rel="tooltip" title="Editar" class="btn btn-success btnEdit" data="<?php echo $certificado->id; ?>">

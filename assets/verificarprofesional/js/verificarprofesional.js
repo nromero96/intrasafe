@@ -124,6 +124,7 @@ function showListCertForAlumnoInternacional(numdni){
 				html +='<tr>'+
 					'<td class="txtcolorcert">'+data[i].curso+'</td>'+
 					'<td class="txtcolorcert">'+data[i].codigo+'</td>'+
+					'<td class="txtcolorcert">'+data[i].empresa+'</td>'+
 					'<td class="txtcolorcert">'+data[i].expira+'</td>'+							
 					'</tr>';
 				}

@@ -112,7 +112,32 @@ class CapacitadorController extends CI_Controller
 			}
 			echo json_encode($msg);
       	}
-
-
 	}
+
+
+	//delete capacitador
+	public function deleteCapacitador(){
+		// Obtener usuario logeado 
+		$user = $this->session->userdata('user');
+		$id_rol = $user['id_rol'];
+	
+		// Verificar si $id_rol es 1
+		if($id_rol == 1){
+			$result = $this->CapacitadorModel->deleteCapacitador();
+			
+			if($result == 'has_courses'){
+				$msg['message'] = 'El capacitador tiene cursos asociados, no se puede eliminar';
+			} else if($result == 'true'){
+				$msg['message'] = 'eliminado';
+			} else {
+				$msg['message'] = 'Error al eliminar alumno';
+			}
+
+		} else {
+			$msg['message'] = 'No tienes permisos para eliminar alumnos, contacta al administrador';
+		}
+		
+		echo json_encode($msg);
+	}
+
 }

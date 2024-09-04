@@ -162,6 +162,7 @@ $(function() {
                     			'<td>'+data[i].email_capacitador+'</td>'+
                     			'<td class="td-actions text-right">'+
                     			'<a href="javascript:;" type="button" rel="tooltip" title="Editar" class="btn btn-success btnEdit" data="' + data[i].id_capacitador + '"><i class="material-icons">edit</i><div class="ripple-container"></div></a>'+
+								' <a href="javascript:;" type="button" rel="tooltip" title="Eliminar" class="btn btn-danger btnDelete" data="' + data[i].id_capacitador + '"><i class="material-icons">delete</i><div class="ripple-container"></div></a>'+
                     			'</td>'+
                     		'</tr>';         
                 }
@@ -178,6 +179,48 @@ $(function() {
         $("#formCapacitador")[0].reset();
         $('#modalcapac').modal('hide');
     });
+
+
+	//Eliminar
+	$('#showdatacapacitador').on('click', '.btnDelete', function(){
+		var id = $(this).attr('data');
+		// Confirmación de alerta
+		swal({
+			title: "¿Estás seguro?",
+			text: "Una vez eliminado, no podrá recuperar este dato!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					type: 'post', // Cambiado a 'post' para seguir la convención REST para eliminación
+					url: baseUrl + "CapacitadorController/deleteCapacitador",
+					data: {id: id},
+					async: false,
+					dataType: 'json',
+					success: function(data){
+						if(data.message == "eliminado"){
+							swal("¡Hecho!", 'Capacitador eliminado correctamente', "success");
+							setTimeout(function(){
+								location.reload();
+							}, 1000);
+						} else {
+							swal("¡Error!", data.message, "error");
+						}
+					},
+					error: function(){
+						alert('Error al eliminar');
+					}
+				});
+			}
+		});
+	});
+
+
+
+
 
     $(document).ready(function(){
     $('.tablafiltro').DataTable({

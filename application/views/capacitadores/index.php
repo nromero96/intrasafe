@@ -117,7 +117,7 @@
                                             <th><b>Profesión</b></th>
                                             <th><b>Teléfono</b></th>
                                             <th><b>Correo</b></th>
-                                            <th class="no-sort"></th>
+                                            <th class="no-sort"><b>Acciones</b></th>
                                         </thead>
                                         <tbody id="showdatacapacitador">
 

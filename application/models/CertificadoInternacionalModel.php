@@ -129,6 +129,7 @@ class CertificadoInternacionalModel extends CI_Model
             'id_alumno' => $this->input->post('id_alumno'),
             'codigo' => $this->input->post('codigo'),
             'curso' => $this->input->post('curso'),
+			'empresa' => $this->input->post('empresa'),
             'expira' => $this->input->post('expira')
         );
 
@@ -163,6 +164,7 @@ class CertificadoInternacionalModel extends CI_Model
             'id_alumno' => $this->input->post('id_alumno'),
             'codigo' => $this->input->post('codigo'),
             'curso' => $this->input->post('curso'),
+			'empresa' => $this->input->post('empresa'),
             'expira' => $this->input->post('expira')
         );
 

@@ -175,7 +175,7 @@
                                                 <th><b>Nombres</b></th>
                                                 <th><b>Teléfono</b></th>
                                                 <th><b>Correo</b></th>
-                                                <th class="no-sort"></th>
+                                                <th class="no-sort"><b>Acciones</b></th>
                                             </thead>
                                             <!-- <tbody id="showdata">
                                                 <p class="text-center" id="loadgif"><img style="max-width: 150px;" src="<?php echo base_url();?>assets/img/load-22.gif"></p>

@@ -192,11 +192,17 @@ class SettingController extends CI_Controller {
 		$config['allowed_types']        = 'png|PNG|jpg|JPG';
 		$config['max_size']             = 0;
 		$this->load->library('upload', $config);
+
+		//subida del imagen_logoresult
+		$this->upload->do_upload("imagen_logoresult");
+		$datlogo_result = array('upload_data' => $this->upload->data());
 	
 		// Subida del primer archivo
 		$this->upload->do_upload("bg_imagen_first");
 		$datfirm_first = array('upload_data' => $this->upload->data());
 	
+
+
 		// Inicializa el campo 'bg_imagen_second' como vacío
 		$bg_imagen_second = '';
 	
@@ -213,6 +219,7 @@ class SettingController extends CI_Controller {
 		// Prepara los datos para guardar
 		$field = array(
 			'nombre' => $this->input->post('nombrecertificado'),
+			'logo_provcertificado' => $datlogo_result['upload_data']['file_name'],
 			'bg_imagen_first' => $datfirm_first['upload_data']['file_name'],
 			'bg_imagen_second' => $bg_imagen_second, // Puede ser un nombre de archivo o una cadena vacía
 			'estado' => $this->input->post('estadocertificado'),
@@ -240,6 +247,15 @@ class SettingController extends CI_Controller {
 			'estado' => $this->input->post('estadocertificado'),
 		);
 	
+		// Subida del primer archivo (imagen_logoresult)
+		if (!empty($_FILES['imagen_logoresult']['name'])) {
+			$this->upload->initialize($config);
+			if ($this->upload->do_upload('imagen_logoresult')) {
+				$datlogoresult = $this->upload->data();
+				$field['logo_provcertificado'] = $datlogoresult['file_name'];
+			}
+		}
+
 		// Subida del primer archivo (bg_imagen_first)
 		if (!empty($_FILES['bg_imagen_first']['name'])) {
 			$this->upload->initialize($config);

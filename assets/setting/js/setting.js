@@ -258,6 +258,11 @@
 			success: function(data){
 			    $('input[name=txtidmdcertificado]').val(data.id);
 				$('input[name=nombrecertificado]').val(data.nombre);
+
+				if(data.logo_provcertificado){
+					$('#previewlogoresult').html('<img src="'+baseUrl+'uploads/bgcertificado/'+data.logo_provcertificado+'" style="width: 200px;" ></img>');
+				}
+
                 if(data.bg_imagen_first){
 				    $('#previewcertimg1').html('<img src="'+baseUrl+'uploads/bgcertificado/'+data.bg_imagen_first+'" style="width: 200px;" ></img>');
                 }

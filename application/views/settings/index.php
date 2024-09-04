@@ -97,6 +97,16 @@
 					                       </div>
 					                   </div>
 					               </div>
+
+								   <div class="row">
+					                   <div class="col-md-12">
+					                        <label class="control-label">Logo para resultados:</label>
+					                        <div class="preview" id="previewlogoresult"></div>
+					                        <input type="file" name="imagen_logoresult" id="imagen_logoresult" required> 
+					                       	<small style="color: red">Tamaño: 500x300 | Tipo: .jpg o .png</small>
+					                   </div>
+					               </div>
+
 					               <div class="row">
 					                   <div class="col-md-12">
 					                        <label class="control-label">Imágen 1:</label>

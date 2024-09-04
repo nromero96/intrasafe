@@ -713,7 +713,33 @@ class PdfsController extends CI_Controller {
                     // Add content to the second page as needed
                     $html_texto_nota = '<font style="text-transform: uppercase; color: #00aeda;" size="24"><b>'.$adata->promedio.'</b></font>';
                     $html_texto_titulo = '<font style="text-transform: uppercase;" size="14"><b>CONTENIDO DEL CURSO:</b></font>';
-                    $html_texto_contenido = $adata->textomodulo;
+                    
+					$estilos = '<style>
+							ul {
+								margin: 0;
+								padding: 0;
+								list-style: none;
+							}
+							li {
+								margin-bottom: 10px; /* Ajusta el margen inferior */
+							}
+						</style>
+					';
+
+					//verificar en $adata->textomodulo si hay [COL2] en el texto.
+
+					$pos = strpos($adata->textomodulo, '<p>[COL2]</p>');
+
+					//si existe [COL2] en el texto entonces separamos el texto en dos columnas
+
+					if($pos === false){
+						$html_texto_contenido = $estilos.'<table border="0"><tr><td>'.$adata->textomodulo.'</td></tr></table>';
+					}else{
+						$contenido_columna_uno = substr($adata->textomodulo, 0, $pos);
+						$contenido_columna_dos = substr($adata->textomodulo, $pos+13);
+						$html_texto_contenido = $estilos.'<table border="0"><tr><td>'.$contenido_columna_uno.'</td><td>'.$contenido_columna_dos.'</td></tr></table>';
+					}
+					
 
 
                     $pdf->SetFont('futuramdbt');
@@ -723,7 +749,7 @@ class PdfsController extends CI_Controller {
                     $pdf->writeHTMLCell($w = 0, $h = 0, $x = 15, $y = 18, $html_texto_titulo, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
                     $pdf->SetFont('helvetica');
-                    $pdf->writeHTMLCell($w = 0, $h = 0, $x = 15, $y = 27, $html_texto_contenido, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                    $pdf->writeHTMLCell($w = 265, $h = 0, $x = 15, $y = 27, $html_texto_contenido, $border = 0, $ln = 0, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
                     //$codigocertificado
                     $pdf->SetFont('helvetica');

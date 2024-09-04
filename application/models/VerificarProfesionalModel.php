@@ -99,5 +99,15 @@ class VerificarProfesionalModel extends CI_Model
 		}
 	}
 
+	public function getLogosCertificados(){
+		$this->db->select('nombre, logo_provcertificado');
+		$query = $this->db->get('modelo_certificados');
+		if($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+	}
+
 
 }

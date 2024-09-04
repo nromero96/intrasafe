@@ -12,7 +12,11 @@ class VerificarProfesionalController extends CI_Controller
 	}
 
 	public function index(){
-		$this->load->view('verificar_al_profesional/index');
+
+		//get data model certificado modelo_certificados nombre y logo_provcertificado
+		$data['logos_cerficados'] = $this->VerificarProfesionalModel->getLogosCertificados();
+
+		$this->load->view('verificar_al_profesional/index', $data);
 	}
 
 

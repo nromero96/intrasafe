@@ -73,7 +73,7 @@
             }
             
             .contsearch{
-                margin-top: 40vh;
+                margin-top: 20vh;
             }
             
             .contsearch input{
@@ -118,6 +118,19 @@
                 -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
                 box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
             }
+
+			.listempresas{
+				margin-bottom: 30px;
+			}
+
+			.listempresas img{
+				width: 120px;
+				margin: 5px;
+				border: 1px solid #f5f5f5;
+				box-shadow: 0px 0px 15px 0px #f2f2f2;
+				border-radius: 10px;
+				background: white;
+			}
             
         </style>
         
@@ -133,6 +146,16 @@
                             
                         </div>
                         <div class="col-md-6 text-center contsearch">
+
+							<div class="listempresas">
+								<?php foreach($logos_cerficados as $logo){ ?>
+									<?php if($logo->logo_provcertificado){ ?>
+										<img src="<?php echo base_url(); ?>uploads/bgcertificado/<?php echo $logo->logo_provcertificado; ?>" title="<?php echo $logo->nombre; ?>" class="imgverif">
+									<?php } ?>
+								<?php } ?>
+
+							</div>
+
                             <div class="form-group">
                                 <input class="form-control" name="txtdni" id="txtdni" type="text" placeholder="Ingresar documento de identidad" autocomplete="off" />
                             </div>
@@ -191,6 +214,7 @@
                                     <tr>
                                         <th><b>Curso</b></th>
                                         <th><b>Código</b></th>
+										<th><b>Empresa</b></th>
 										<th><b>Expira</b></th>
                                     </tr>
                                 </thead>

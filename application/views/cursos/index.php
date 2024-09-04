@@ -147,6 +147,7 @@
                                         </div>
 
                                         <div class="hidden" id="crmod_content">
+											<small>Para separar en dos columnas poner: <code>[COL2]</code></small>
                                             <textarea name="textomodulo" id="textomodulo"></textarea>
                                         </div>
                                         
@@ -294,7 +295,7 @@
                                             	<th class="no-sort"><b>Cupos</b></th>
                                             	<th class="no-sort"><b>Capacitador</b></th>
                                             	<th class="text-center no-sort"><b>Horario</b></th>
-                                            	<th class="no-sort" style="width: 58px;"></th>
+                                            	<th class="no-sort"><b>Acciones </b></th>
                                         	</thead>
                                         	<tbody id="showdata">
 

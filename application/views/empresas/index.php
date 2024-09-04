@@ -101,6 +101,7 @@
                                             <div class="col-md-12">
                                                 <img id="logoemp" src="" class="img-responsive">
                                                 <input type="file" name="logo_emp" id="logo_emp">
+												<small style="color: red">Tamaño mínimo: 500x500 | Formato: .png</small>
                                             </div>
                                         </div>
 
@@ -203,7 +204,7 @@
                                             <th><b>Dirección</b></th>
                                             <th><b>Teléfono</b></th>
                                             <th><b>Correo</b></th>
-                                            <th class="no-sort" style="width: 66px;"></th>
+                                            <th class="no-sort"><b>Acciones</b></th>
                                         </thead>
                                         <tbody id="showdata">
 

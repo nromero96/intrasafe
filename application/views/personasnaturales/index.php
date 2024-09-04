@@ -190,7 +190,7 @@
                                             <th><b>Apellidos</b></th>
                                             <th><b>Teléfono</b></th>
                                             <th><b>Correo</b></th>
-                                            <th class="no-sort" style="width: 66px;"></th>
+                                            <th class="no-sort"><b>Acciones</b></th>
                                         </thead>
                                         <tbody id="showdatapn">
 
