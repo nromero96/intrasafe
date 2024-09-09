@@ -102,7 +102,7 @@
 					                   <div class="col-md-12">
 					                        <label class="control-label">Logo para resultados:</label>
 					                        <div class="preview" id="previewlogoresult"></div>
-					                        <input type="file" name="imagen_logoresult" id="imagen_logoresult" required> 
+					                        <input type="file" name="imagen_logoresult" id="imagen_logoresult"> 
 					                       	<small style="color: red">Tamaño: 500x300 | Tipo: .jpg o .png</small>
 					                   </div>
 					               </div>

@@ -45,6 +45,7 @@ class VerificarProfesionalModel extends CI_Model
 			certificado.serie,
 			certificado.correlativo,
 			modelo_certificados.nombre as certifica,
+			modelo_certificados.logo_provcertificado as logoprevcertifica,
 			vw_cursosforcertificado.fechainiciocertificado,
 			vw_cursosforcertificado.fecha_vigenica,
 			vw_cursosforcertificado.vigencia_curso,

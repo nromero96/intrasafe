@@ -79,20 +79,30 @@ function showListCertForAlumno(numdni){
 			var i;
 			
 			for (i=0; i<data.length; i++){
+
+				let certifica = data[i].certifica.replace("Certificado", "");
+
 			    if(data[i].vigencia_curso != '0'){
 		                vigcert = data[i].fecha_vigenica;
 		            }else{
 		                vigcert = '-';
 		        }
+
+				if(data[i].logoprevcertifica == ''){
+					bajoparametrosde = "<b>"+certifica+"</b>";
+				}else{
+					bajoparametrosde = "<b>"+certifica+"</b><img src='"+baseUrl+"uploads/bgcertificado/"+data[i].logoprevcertifica+"' width='70px' title='"+certifica+"'>";
+				}
 		    
 				html +='<tr>'+
-					'<td class="txtcolorcert">'+data[i].nombrecurso+'</td>'+
-					'<td class="txtcolorcert">'+data[i].horas+' Horas</td>'+
-					'<td class="txtcolorcert">'+data[i].certifica+'</td>'+
-					'<td class="txtcolorcert">'+data[i].serie+''+data[i].correlativo+'</td>'+
-					// '<td>'+'<a class="txtcolorcert btnVCert" href="javascript:;" type="button" title="Ver Certificado" data1="'+data[i].id_alumno_grupo+'" data2="'+data[i].id_curso+'" data3="'+data[i].descripcion+'">Ver certificado</a>'+'</td>'+
-					'<td class="txtcolorcert">'+data[i].fechainiciocertificado+'</td>'+	
-					'<td class="txtcolorcert">'+vigcert+'</td>'+							
+					'<td class="txtcolorcert vert-center">'+data[i].nombrecurso+'</td>'+
+					'<td class="txtcolorcert vert-center">'+data[i].horas+' Horas</td>'+
+
+					'<td class="txtcolorcert vert-center bjparamcert"><span>'+bajoparametrosde+'</span></td>'+
+
+					'<td class="txtcolorcert vert-center">'+data[i].serie+''+data[i].correlativo+'</td>'+
+					'<td class="txtcolorcert vert-center">'+data[i].fechainiciocertificado+'</td>'+	
+					'<td class="txtcolorcert vert-center">'+vigcert+'</td>'+							
 					'</tr>';
 				}
 				if(html==''){

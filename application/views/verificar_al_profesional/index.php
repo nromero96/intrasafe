@@ -19,6 +19,14 @@
             .imgverif{
                 max-width: 100%;
             }
+			p{
+				font-size: 17px;
+				line-height: 22px;
+			}
+
+			.space-img{
+				
+			}
 
             .bxdainfo{
                 background: #ffffff;
@@ -61,19 +69,16 @@
             }
             
             .bgimg{
-                padding: 4em;
-                background: rgba(30,100,140,1);
-                background: -moz-linear-gradient(-45deg, rgba(30,100,140,1) 0%, rgba(30,100,140,1) 12%, rgba(15,62,88,1) 80%, rgba(15,62,88,1) 100%);
-                background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(30,100,140,1)), color-stop(12%, rgba(30,100,140,1)), color-stop(80%, rgba(15,62,88,1)), color-stop(100%, rgba(15,62,88,1)));
-                background: -webkit-linear-gradient(-45deg, rgba(30,100,140,1) 0%, rgba(30,100,140,1) 12%, rgba(15,62,88,1) 80%, rgba(15,62,88,1) 100%);
-                background: -o-linear-gradient(-45deg, rgba(30,100,140,1) 0%, rgba(30,100,140,1) 12%, rgba(15,62,88,1) 80%, rgba(15,62,88,1) 100%);
-                background: -ms-linear-gradient(-45deg, rgba(30,100,140,1) 0%, rgba(30,100,140,1) 12%, rgba(15,62,88,1) 80%, rgba(15,62,88,1) 100%);
-                background: linear-gradient(135deg, rgba(30,100,140,1) 0%, rgba(30,100,140,1) 12%, rgba(15,62,88,1) 80%, rgba(15,62,88,1) 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e648c', endColorstr='#0f3e58', GradientType=1 );
+				height: 100%;
+                background-image: url(<?php echo base_url(); ?>assets/img/safe_vrf_2033.jpg);
+				background-size: cover;
+				background-position: center;
+				
             }
             
             .contsearch{
-                margin-top: 20vh;
+                margin-top: 8vh;
+				margin-bottom: 10vh;
             }
             
             .contsearch input{
@@ -131,6 +136,33 @@
 				border-radius: 10px;
 				background: white;
 			}
+
+			.bjparamcert span{
+				border: 1px solid #f5f5f5;
+				box-shadow: 0px 0px 15px 0px #f2f2f2;
+				border-radius: 10px;
+				background: white;
+				padding: 0px 0px 0px 8px;
+				max-width: 190px;
+				display: grid;
+				grid-template-columns: 1fr 0fr;
+			}
+
+			.vert-center{
+				vertical-align: middle !important;
+			}
+
+			.bjparamcert b{
+				padding: 10px 6px 10px 4px;
+				line-height: 26px;
+			}
+
+			.bjparamcert img{
+				margin: 2px;
+				border-radius: 7px;
+				border: 1px solid #f5f5f5;
+				background: white;
+			}
             
         </style>
         
@@ -142,10 +174,12 @@
                     <div class="row" id="bxbuscador">
                         <div class="col-md-6 text-center bgimg hidden-xs">
                             
-                            <img src="<?php echo base_url(); ?>assets/img/safesi-verificar-personal.png" class="imgverif">
+							<div class="space-img"></div>
                             
                         </div>
                         <div class="col-md-6 text-center contsearch">
+
+							<p class="text-center">Emitimos certificados conforme a los parámetros establecidos por Safesi o por las empresas que confían en nosotros y nos autorizan a capacitar a sus contratistas.</p>
 
 							<div class="listempresas">
 								<?php foreach($logos_cerficados as $logo){ ?>
@@ -153,7 +187,11 @@
 										<img src="<?php echo base_url(); ?>uploads/bgcertificado/<?php echo $logo->logo_provcertificado; ?>" title="<?php echo $logo->nombre; ?>" class="imgverif">
 									<?php } ?>
 								<?php } ?>
+							</div>
 
+							<p>Certificaciones internacionales</p>
+							<div class="listempresas">
+								<img src="<?php echo base_url(); ?>uploads/bgcertificado/logo-saia.png" title="SAIA" class="imgverif">
 							</div>
 
                             <div class="form-group">
@@ -193,7 +231,7 @@
                                     <tr>
                                         <th><b>Curso</b></th>
                                         <th><b>Duración</b></th>
-										<th><b>Certifíca</b></th>
+										<th><b>Bajo los parámetros de:</b></th>
                                         <th><b>Cód. de certificado</b></th>
                                         <th><b>Fecha de emisión</b></th>
                                         <th><b>Fecha de expiración</b></th>
