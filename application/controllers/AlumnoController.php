@@ -185,4 +185,40 @@ class AlumnoController extends CI_Controller
 	
 	
 
+	public function addAlumnoByCertInternacional() {
+		try {
+			$result = $this->AlumnoModel->addAlumnoByCertInternacional();
+			
+			if ($result) {
+				// Obtener datos del alumno si la inserción fue exitosa
+				$alumnoData = array(
+					'id' => $result,
+					'nombres' => $this->input->post('txtnombres'),
+					'apellidos' => $this->input->post('txtapellidos'),
+					'numerodocumento' => $this->input->post('txtnumerodocumento')
+				);
+				
+				// Enviar respuesta con los datos del alumno
+				echo json_encode([
+					'status' => 'success',
+					'message' => 'Alumno agregado exitosamente',
+					'alumno' => $alumnoData
+				]);
+			} else {
+				echo json_encode([
+					'status' => 'error',
+					'message' => 'Error al agregar el alumno'
+				]);
+			}
+		} catch (Exception $e) {
+			echo json_encode([
+				'status' => 'error',
+				'message' => 'Ocurrió un error: ' . $e->getMessage()
+			]);
+		}
+	}
+	
+	
+
+
 }

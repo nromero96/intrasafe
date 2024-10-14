@@ -183,7 +183,7 @@
 
 							<div class="listempresas">
 								<?php foreach($logos_cerficados as $logo){ ?>
-									<?php if($logo->logo_provcertificado){ ?>
+									<?php if($logo->logo_provcertificado && $logo->nombre != 'Safesi Cetar'){ ?>
 										<img src="<?php echo base_url(); ?>uploads/bgcertificado/<?php echo $logo->logo_provcertificado; ?>" title="<?php echo $logo->nombre; ?>" class="imgverif">
 									<?php } ?>
 								<?php } ?>

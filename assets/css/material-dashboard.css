@@ -231,8 +231,19 @@
     border-radius: 5px;
 }
 
+.btnnewalumno{
+	border: none;
+    font-size: 12px;
+    background: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-top: 2px;
+}
 
-/*!
+
+/*
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
 

@@ -195,8 +195,76 @@ class AlumnoModel extends CI_Model
 				return 'false';
 			}
 		}
-
 	}
+	
+
+	public function addAlumnoByCertInternacional() {
+		// Obtener datos del formulario
+		$tipodocumento = $this->input->post('txttipodocumento');
+		$txtnumerodocumento = $this->input->post('txtnumerodocumento');
+		$txtapellidos = $this->input->post('txtapellidos');
+		$txtnombres = $this->input->post('txtnombres');
+		$txtfnacimiento = $this->input->post('txtfnacimiento');
+		$txttelefono = $this->input->post('txttelefono');
+		$txtemail = $this->input->post('txtemail');
+		$txtcargo = $this->input->post('txtcargo');
+
+		$config['upload_path']          = './uploads/fotos';
+        $config['allowed_types']        = 'png|PNG|jpg|JPG';
+        $config['max_size']             = 0;
+      	$this->load->library('upload', $config);
+
+		if($this->upload->do_upload("fotoperfil")){
+			$datfirm = array('upload_data' => $this->upload->data());
+			$fotoperfil = $datfirm['upload_data']['file_name'];
+		}else{
+			$fotoperfil = 'default.png';
+		}
+	
+		// Datos para la empresa
+		$dataforempresa = array(
+			'razonsocial' => '-',
+			'ruc' => $txtnumerodocumento,
+			'direccion' => '-',
+			'emailcontacto' => $txtemail,
+			'nombrecontacto' => $txtnombres,
+			'apellidoscontacto' => $txtapellidos,
+			'telefono' => $txttelefono,
+			'emailfactura' => '-',
+			'empresa_pn' => '',
+			'cargo_pn' => $txtcargo,
+			'nombreusuario' => $txtnumerodocumento,
+			'password' => $txtnumerodocumento,
+			'tyc' => '1',
+			'tipo' => 'PN'
+		);
+	
+		// Guardar la empresa
+		if (!$this->db->insert('empresas', $dataforempresa)) {
+			return false; // Manejo de error en la inserción
+		}
+	
+		// Datos para el alumno
+		$dataforalumno = array(
+			'tipodocumento' => $tipodocumento,
+			'numerodocumento' => $txtnumerodocumento,
+			'apellidos' => $txtapellidos,
+			'nombres' => $txtnombres,
+			'fnacimiento' => $txtfnacimiento,
+			'telefono' => $txttelefono,
+			'email' => $txtemail,
+			'fotoperfil' => $fotoperfil,
+		);
+	
+		// Guardar alumno y devolver el ID
+		if ($this->db->insert('alumnos', $dataforalumno)) {
+			// Retornar ID del alumno insertado
+			return $this->db->insert_id(); 
+		} else {
+			return false; // Manejo de error en la inserción
+		}
+	}
+	
 	
 
 

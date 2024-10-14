@@ -26,6 +26,14 @@ $(function(){
         $('.diinputs').addClass('label-floating');
     });
 
+	//btnnewalumno
+	$('#btnnewalumno').click(function(){
+        $('#mymodalalumno').modal('show');
+        $('.tit-modal').text('Registrar Alumno');
+        $('#formCertificado').attr('action', baseUrl + "CertificadoInternacionalController/addCertificado");
+        $('.diinputs').addClass('label-floating');
+    });
+
     //Get Alumno
 	$('#queryalumno').on('keyup', function() {
 		var query = $(this).val();
@@ -170,6 +178,48 @@ $(function(){
 	$('#btnReset').click(function(){
 		$('#formCertificado')[0].reset();
 	});
+
+	// Guardar alumno con fetch - formAddAlumno
+	$('#formAddAlumno').submit(function(e) {
+		e.preventDefault();  // Evitar el envío del formulario por defecto
+
+		// Obtener la URL de acción y los datos del formulario
+		var url = $('#formAddAlumno').attr('action');
+		var formData = new FormData(this);  // Usar 'this' para referirse al formulario actual
+
+		fetch(url, {
+			method: 'POST',
+			body: formData
+		})
+		.then(response => response.json())  // Convertir la respuesta a JSON
+		.then(data => {
+			// Verificar si la respuesta indica éxito
+			if (data.status === 'success') {
+				// Actualizar la información del alumno en el formulario
+				$('#queryalumno').val(`${data.alumno.nombres} ${data.alumno.apellidos} (${data.alumno.numerodocumento})`);
+				$('#id_alumno').val(data.alumno.id);
+
+				// Cerrar el modal
+				$('#mymodalalumno').modal('hide');
+				
+				// Limpiar el formulario
+				$('#formAddAlumno')[0].reset();
+
+				// Mostrar una alerta de éxito
+				swal("¡Hecho!", 'Alumno guardado correctamente', "success");
+			} else {
+				// Mostrar un mensaje de error si algo falla
+				swal("¡Error!", data.message, "error");
+			}
+		})
+		.catch(error => {
+			// Manejo de errores de la solicitud
+			console.error('Error:', error);
+			swal("¡Error!", 'Ocurrió un error al procesar la solicitud', "error");
+		});
+	});
+
+
 
 });
 
