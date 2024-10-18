@@ -547,6 +547,13 @@ class PdfsController extends CI_Controller {
                 // set the starting point for the page content
                 $pdf->setPageMark();
 
+				
+				if(strpos($adata->horas, '.0') !== false){
+					$horascurso = str_replace('.0', '', $adata->horas);
+				}else{
+					$horascurso = $adata->horas;
+				}
+
                 //Función generador de Numero
 
                 if($adata->ct_serie == 'SAFESI-C18-'){
@@ -568,7 +575,7 @@ class PdfsController extends CI_Controller {
                 $html2 = '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
                 $html3 = '<p align="center"><font size="13">'.$adata->desc_tipocertificado.' '.$fechascurso->vAcumulado.'.</font></p>';
                 $html4 = '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
-                $html5 = '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
+                $html5 = '<p align="center"><font size="16"><b>('.$horascurso.' Horas)</b></font></p>';
                 
                 if($adata->mostrardescripcion == '0' || $adata->descripcion =='' ){
                     $descripcion .= '<table width="855" >
@@ -839,6 +846,12 @@ class PdfsController extends CI_Controller {
 			// set the starting point for the page content
 			$pdf->setPageMark();
 
+			if(strpos($adata->horas, '.0') !== false){
+				$horascurso = str_replace('.0', '', $adata->horas);
+			}else{
+				$horascurso = $adata->horas;
+			}
+
 			//Función generador de Numero
 
 			if($adata->ct_serie == 'SAFESI-C18-'){
@@ -860,7 +873,7 @@ class PdfsController extends CI_Controller {
 			$html2 = '<p align="center"><small>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</small></p>';
 			$html3 = '<p align="center"><font size="13">'.$adata->desc_tipocertificado.' '.$fechascurso->vAcumulado.'.</font></p>';
 			$html4 = '<h1 align="center"><font size="21" style="text-transform: uppercase;"><b>'.$adata->nombrecurso.'</b></font></h1>';
-			$html5 = '<p align="center"><font size="16"><b>('.$adata->horas.' Horas)</b></font></p>';
+			$html5 = '<p align="center"><font size="16"><b>('.$horascurso.' Horas)</b></font></p>';
 			
 			if($adata->mostrardescripcion == '0' || $adata->descripcion =='' ){
 				$descripcion .= '<table width="855" >

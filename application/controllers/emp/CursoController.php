@@ -94,6 +94,95 @@ class CursoController extends CI_Controller
 		echo json_encode($result);
 	}
 
+
+	public function createReservaCompleta(){
+		$result = $this->ReservaModel->createReservaCompleta();
+		
+		/*Obtener Datos:::::::::::::::::::::::::::::*/
+		$cupones = $this->input->post('slsncupos');
+		$costototal = $this->input->post('txtcostotal');
+
+		$idcurso = $this->input->post('txtIdCursoR');
+		$curso = $this->ReservaModel->getDataCurso($idcurso);
+
+		$idempresa = $this->input->post('txtIdEmpresa');
+		$empresa = $this->ReservaModel->getDataEmpresa($idempresa);
+
+
+		$msg['succes'] = false;
+		$msg['type'] = 'add';
+		if ($result) {
+			$msg['succes'] = true;
+			$msg['id_empresa'] = $idempresa;
+			$msg['tipo_empresa'] = $empresa->tipo;
+		}
+		echo json_encode($msg);
+
+
+		/*Enviar Correo::::::::::::::::::::::::::::::*/
+		$this->load->library('email');
+		$config['mailtype'] ='html';
+		$config['protocol'] ='senmail';
+
+		$this->email->initialize($config);
+		$this->email->from('safesi@safesi.com', 'INTRANET - SAFESI');
+		$this->email->to('capacitacion@safesi.com');
+		$this->email->subject('Reserva: "'.$curso->nombrecurso.'".');
+		if($empresa->tipo =='EM'){
+			$this->email->message('
+				<h4>INTRANET - SAFESI</h4>
+				<p>Nuevo registro para el curso <b>"'.$curso->nombrecurso.'"</b></p>
+
+				<p>
+				<b>Empresa</b>: '.$empresa->razonsocial.'<br>
+				<b>RUC</b>: '.$empresa->ruc.'<br>
+				<b>Teléfono</b>: '.$empresa->telefono.'<br>
+				<b>Correo:</b>: '.$empresa->emailcontacto.'<br>
+				</p>
+		
+				<p>
+				<b>Curso</b>: '.$curso->nombrecurso.'<br>
+				<b>Cupones reservados</b>: '.$cupones.'<br>
+				<b>Costo total</b>: '.$costototal.'<br>
+				<b>Fecha de inicio</b>: '.$curso->FechaInicio.'
+				</p>
+
+				<p><a href="http://www.safesi.com/">www.safesi.com</a></p>
+			');
+			$this->email->send();
+		}else{
+			$this->email->message('
+			<h4>INTRANET - SAFESI</h4>
+			<p>Nuevo registro para el curso <b>"'.$curso->nombrecurso.'"</b></p>
+
+			<p>
+			<b>Nombre</b>: '.$empresa->nombrecontacto.' '.$empresa->apellidoscontacto.'<br>
+			<b>DNI</b>: '.$empresa->ruc.'<br>
+			<b>Teléfono</b>: '.$empresa->telefono.'<br>
+			<b>Correo:</b>: '.$empresa->emailcontacto.'<br>
+			</p>
+	
+			<p>
+			<b>Curso</b>: '.$curso->nombrecurso.'<br>
+			<b>Cupones reservados</b>: '.$cupones.'<br>
+			<b>Costo total</b>: '.$costototal.'<br>
+			<b>Fecha de inicio</b>: '.$curso->FechaInicio.'
+			</p>
+
+			<p><a href="http://www.safesi.com/">www.safesi.com</a></p>
+		');
+		$this->email->send();
+		}
+
+		// Redireccionar según el tipo de empresa
+		// if ($empresa->tipo == 'EM') {
+		// 	redirect(base_url('grp_em/grupos?client&idcl=' . $empresa->id . '&safesi&tipcl=EM'));
+		// } else {
+		// 	redirect(base_url('grp_pn/grupos?client&idcl=' . $empresa->id . '&safesi&tipcl=PN'));
+		// }
+	}
+
+
 	public function saveReserva(){
 		$result = $this->ReservaModel->saveReserva();
 		$msg['succes'] = false;

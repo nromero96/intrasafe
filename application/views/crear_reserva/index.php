@@ -154,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="btnSaveReserva" class="btn btn-primary">Guardar</button>
+									<button type="button" id="btnSaveReserva" class="btn btn-primary">Reservar</button>
                                     <button type="button" id="btnResetRv" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
@@ -324,7 +324,7 @@
                                             <th class="no-sort">Cupos<br>Disponibles</th>
                                             <th class="no-sort">Precio Actual</th>
                                             <th class="no-sort">Capacitador</th>
-                                            <th width="119px" class="no-sort"></th>
+                                            <th width="255px" class="no-sort"></th>
                                         </thead>
                                         <tbody id="showdata">
 

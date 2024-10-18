@@ -138,6 +138,60 @@ $(function(){
 	}
 		);
 
+
+	//Boton CrearTodo
+	$('#showdata').on('click', '.btnCrear', function(){
+		var id_empreselec = $('input[name=txtIdEmpresa]');
+
+		if(id_empreselec.val()==''){
+			swal("Ups!", "Te olvidastes seleccionar la Empresa/Persona Natural.!", "error");
+		}else{
+		var id = $(this).attr('data');
+		$('#modalreservar').modal({backdrop: 'static',});
+		$('div').addClass('label-floating');
+		$('#modalreservar').find('.tit-modal').text('Crear Reserva');
+		$('#btnSaveReserva').text('Crear');
+		$('#formReservar').attr('action', baseUrl + 'emp/CursoController/createReservaCompleta');
+		$.ajax({
+			type: 'ajax',
+			method: 'get',
+			url: baseUrl + "emp/CursoController/viewCursoSafesi",
+			data: {id: id},
+			async: false,
+			dataType: 'json',
+			success: function(data){
+				$('#lblnombre1').text(data.nombrecurso);
+				//$('textarea[name=txtdescripcion]').val(data.descripcion);
+
+				$('.txtdescripspn').html(data.descripcion);
+
+				$('#lblcapacitador1').text(data.apellidos_capacitador+' '+data.nombres_capacitador);
+				$('input[name=txtIdCursoR]').val(data.id_curso);
+				var c=1;   
+    			for(c=1; c<=data.cupos; c++){
+    				if(c=='1'){
+    					$txtcup ='cupo';
+    				}else{
+    					$txtcup ='cupos';
+    				}
+    				var option = "<option value='" + c + "'>" + c +' ' +$txtcup+"</option>"
+    				document.getElementById('selectId').innerHTML += option;   
+    			}
+
+    			$( "#dslscupos" ).change(function() {
+    				var cup = $("#dslscupos option:selected").val();
+      				var res = parseFloat(cup*data.precio).toFixed(2);
+    				$('input[name=txtcostotal]').val(res);
+  					});
+			},
+			error: function(){
+				 swal("¡Ups!", "Algo salió mal al momento de Reservar.! Intentelo nuevamente.", "error");
+
+			}
+		});
+		}
+	});
+
 	//Boton Reservar
 	$('#showdata').on('click', '.btnReservar', function(){
 		var id_empreselec = $('input[name=txtIdEmpresa]');
@@ -149,6 +203,7 @@ $(function(){
 		$('#modalreservar').modal({backdrop: 'static',});
 		$('div').addClass('label-floating');
 		$('#modalreservar').find('.tit-modal').text('Reservar cupos');
+		$('#btnSaveReserva').text('Reservar');
 		$('#formReservar').attr('action', baseUrl + 'emp/CursoController/saveReserva');
 		$.ajax({
 			type: 'ajax',
@@ -237,6 +292,7 @@ $(function(){
 				async: false,
 				dataType:'json',
 				success: function(respuesta){
+					console.log(respuesta);
 					dnotificacion.showNotification('top','right');
 					showAllReservas(id_empget);
 					showAllCurso();
@@ -246,8 +302,18 @@ $(function(){
 						if(respuesta.type=='add'){
 							var type='Reservado'
 						}else if(respuesta.type=='update'){
-                             var type='Actualizado'
+                            var type='Actualizado'
 						}
+
+					if(respuesta.id_empresa){
+						//redirect to url
+						if(respuesta.tipo_empresa=='PN'){
+							window.location.href = baseUrl + 'grp_pn/grupos?client&idcl='+respuesta.id_empresa+'&safesi&tipcl='+respuesta.tipo_empresa;
+						}else{
+							window.location.href = baseUrl + 'grp_em/grupos?client&idcl='+respuesta.id_empresa+'&safesi&tipcl='+respuesta.tipo_empresa;
+						}
+					}
+					
 				},
 
 				error: function(){
@@ -516,8 +582,10 @@ $(function(){
 				for (i=0; i<data.length; i++){
 					if(data[i].cupos <= '0'){
 						btnreserva = '<a href="javascript:;" type="button" title="Reservar" class="btn btn-primary" disabled><i class="material-icons">perm_contact_calendar</i> RESERVAR</a>';
+						btncrear = '<a href="javascript:;" type="button" title="Crear" class="btn btn-success" disabled><i class="material-icons">group_add</i> CREAR</a>';
 					}else{
 						btnreserva = '<a href="javascript:;" type="button" title="Reservar" class="btn btn-primary btnRsv1 btnReservar" data="'+data[i].id_curso+'"><i class="material-icons">perm_contact_calendar</i> RESERVAR</a>';
+						btncrear = '<a href="javascript:;" type="button" title="Crear" class="btn btn-success btnRsv1 btnCrear" data="'+data[i].id_curso+'"><i class="material-icons">group_add</i> CREAR</a>';
 					}
 
 					if(data[i].cupos <='1'){
@@ -535,7 +603,7 @@ $(function(){
 								'<td>'+'S/.'+data[i].precio+'</td>'+
 								'<td>'+data[i].apellidos_capacitador+' '+data[i].nombres_capacitador+'</td>'+
 								'<td class="td-actions text-right">'+
-									'<a href="javascript:;" type="button" title="Ver" class="btn btn-info btnView" data="'+data[i].id_curso+'"><i class="material-icons">visibility</i></a> '+btnreserva+
+									'<a href="javascript:;" type="button" title="Ver" class="btn btn-info btnView" data="'+data[i].id_curso+'"><i class="material-icons">visibility</i></a> '+btnreserva+' '+btncrear+
 								'</td>'+
 							'</tr>';
 				}
