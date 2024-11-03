@@ -26,8 +26,7 @@ $(function(){
 		$('#modalverpagoreserva').find('.tit-modal').text('Detalle del Pago');
 		$('#formVPagoReserva').attr('action', baseUrl + "ReservaController/saveReserPagovaVerificado");
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/viewReservaPago",
 			data: {id: idr},
 			async: false,
@@ -46,8 +45,7 @@ $(function(){
 
 		//Listar Cursos
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/showListReservasPorPago",
 			data: {id: idr},
 			async: false,
@@ -87,8 +85,7 @@ $(function(){
 
 		if(estadopago.val()=='0' || estadopago.val()=='2'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'GET',
 				url: url,
 				data: data,
 				async: false,
@@ -134,8 +131,7 @@ $(function(){
 
     			//Reservas
 			 	$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/showAllReserva",
 					data: {id: tipocliente},
 					async: false,
@@ -170,8 +166,7 @@ $(function(){
 
     			//Reservas Pagos Pendientes de verificar
 			 	$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/viewPagoReservaPorVerifcar",
 					data: {id: tipocliente},
 					async: false,
@@ -207,8 +202,7 @@ $(function(){
 
     			//Reservas Pagos Verificados
 			 	$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/showAllReservaPagoVerificado",
 					data: {id: tipocliente},
 					async: false,
@@ -253,8 +247,7 @@ $(function(){
 
     			//Reservas
     			$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/showAllReserva",
 					data: {id: tipocliente},
 					async: false,
@@ -289,8 +282,7 @@ $(function(){
 
     			//Reservas Pagos Pendientes de verificar
     			$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/viewPagoReservaPorVerifcar",
 					data: {id: tipocliente},
 					async: false,
@@ -327,8 +319,7 @@ $(function(){
 
     			//Reservas Pagos Verificados
     			$.ajax({
-					type: 'ajax',
-					method: 'get',
+					method: 'GET',
 					url: baseUrl + "ReservaController/showAllReservaPagoVerificado",
 					data: {id: tipocliente},
 					async: false,
@@ -373,8 +364,7 @@ $(function(){
 		$('#modalverreservaEM').modal('show');
 		$('#formDescuentoResvEM').attr('action', baseUrl + "ReservaController/updateReservaPrecioEM");
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/viewReserva",
 			data: {id: idr},
 			async: false,
@@ -404,8 +394,7 @@ $(function(){
 		var url = $('#formDescuentoResvEM').attr('action');
 		var data = $('#formDescuentoResvEM').serialize();
 			$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -434,8 +423,7 @@ $(function(){
 		$('#modalverreservaPN').modal('show');
 		$('#formDescuentoResvPN').attr('action', baseUrl + "ReservaController/updateReservaPrecioPN");
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/viewReserva",
 			data: {id: idr},
 			async: false,
@@ -466,8 +454,7 @@ $(function(){
 		var url = $('#formDescuentoResvPN').attr('action');
 		var data = $('#formDescuentoResvPN').serialize();
 			$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -497,8 +484,7 @@ $(function(){
 		var idr = $(this).attr('data');
 		$('#modalverreservapagoconfirmadoem').modal('show');
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/viewReservaPagoConfirmado",
 			data: {id: idr},
 			async: false,
@@ -531,8 +517,7 @@ $(function(){
 		var idr = $(this).attr('data');
 		$('#modalverreservapagoconfirmadopn').modal('show');
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "ReservaController/viewReservaPagoConfirmado",
 			data: {id: idr},
 			async: false,

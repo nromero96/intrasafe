@@ -74,8 +74,7 @@ $(function(){
 		$('div').removeClass('label-floating');
 		$('#mymodal').find('.tit-modal').text('Detalle del Curso');
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "emp/CursoController/viewCursoSafesi",
 			data: {id: id},
 			async: false,
@@ -112,8 +111,7 @@ $(function(){
 		});
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "emp/CursoController/showAllHorarioForCurso",
 			data:{id:id},
 			async: false,
@@ -153,8 +151,7 @@ $(function(){
 		$('#btnSaveReserva').text('Crear');
 		$('#formReservar').attr('action', baseUrl + 'emp/CursoController/createReservaCompleta');
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "emp/CursoController/viewCursoSafesi",
 			data: {id: id},
 			async: false,
@@ -206,8 +203,7 @@ $(function(){
 		$('#btnSaveReserva').text('Reservar');
 		$('#formReservar').attr('action', baseUrl + 'emp/CursoController/saveReserva');
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "emp/CursoController/viewCursoSafesi",
 			data: {id: id},
 			async: false,
@@ -285,8 +281,7 @@ $(function(){
 		id_empget = $("#txtIdEmpresa").val();
 			if(resultad=='1234'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -338,8 +333,7 @@ $(function(){
 		.then((willDelete) => {
 		  if (willDelete) {
 			$.ajax({
-				type: 'ajax',
-				method: 'get',
+				method: 'GET',
 				async: false,
 				url: baseUrl + "emp/CursoController/DeleteReserva",
 				data:{id:idReserva},
@@ -422,8 +416,7 @@ $(function(){
 		id_empget = $("#txtIdEmpresa").val();
 			if(resultad=='1234'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'POST',
 				url: urlp,
 				data: data,
 				async: false,
@@ -466,8 +459,7 @@ $(function(){
 		$('#txtfcreacion').val(miFecha);
 
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "emp/CursoController/GetDataReserva",
 			data: {id: idRpagado},
 			async: false,
@@ -492,8 +484,7 @@ $(function(){
     var idresv = $('#txtidReservaParaGrup').val();
     if(idresv != ""){
         $.ajax({
-            type: 'ajax',
-            method: 'get',
+            method: 'GET',
             url: baseUrl+"CrearReservaController/validarGrupo",
             data: {getidreserva: idresv},
             beforeSend: function(){
@@ -541,8 +532,7 @@ $(function(){
 		id_empget = $("#txtIdEmpresa").val();
 			if(resultad=='12'){
 				$.ajax({
-				type:'ajax',
-				method: 'post',
+				method: 'POST',
 				url: url,
 				data: data,
 				async: false,
@@ -570,8 +560,7 @@ $(function(){
 		var txtc='Todo';
 		var url1=baseUrl + "CrearReservaController/showAllCursoParaSafesi";
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: url1,
 			data:{nomcur:txtc},
 			async: true,
@@ -619,8 +608,7 @@ $(function(){
 	function showAllReservas(getidemp){
 		var idem = getidemp;
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "CrearReservaController/showAllReserva",
 			data:{id:idem},
 			async: true,
@@ -674,8 +662,7 @@ $(function(){
 	function showAllPagado(getidemp){
 		var idem = getidemp;
 		$.ajax({
-			type: 'ajax',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + "CrearReservaController/showAllPagado",
 			data:{id:idem},
 			async: true,
@@ -741,8 +728,7 @@ $(function(){
 		var desde=getfdesde;
 		var hasta=getfhasta;
 		$.ajax({
-			type:'get',
-			method: 'get',
+			method: 'GET',
 			url: baseUrl + 'CrearReservaController/showAllCursoForDateSafesi',
 			data:{id:desde, id2:hasta},
 			async: false,
