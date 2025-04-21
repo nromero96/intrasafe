@@ -35,23 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="material-icons">chrome_reader_mode</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Certificados</p>
-                                    <h3 class="title">-</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">list</i>
-                                        <a href="<?=base_url()?>emp/e_certificados">Ver Certificados</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

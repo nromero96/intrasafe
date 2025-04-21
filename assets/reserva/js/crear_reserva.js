@@ -563,7 +563,6 @@ $(function(){
 			method: 'GET',
 			url: url1,
 			data:{nomcur:txtc},
-			async: true,
 			dataType: 'json',
 			success: function(data){
 				var html = '';
