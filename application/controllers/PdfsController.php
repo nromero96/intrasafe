@@ -468,8 +468,8 @@ class PdfsController extends CI_Controller {
         }
 
 
-        //Certificado Nueva Version============================================================+
-        public function viewcertificado(){
+        //Certificado============================================================+
+        public function viewcertificado_oldversion(){
 
                 $this->load->library('Pdf');
                 
@@ -768,7 +768,7 @@ class PdfsController extends CI_Controller {
 
         }
 
-		public function generatecertificado(){
+		public function viewcertificado(){
 
 			$this->load->library('Pdf');
 			
