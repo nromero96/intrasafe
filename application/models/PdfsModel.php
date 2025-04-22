@@ -105,6 +105,40 @@ class PdfsModel extends CI_Model
 		}else{
 			return false;
 		}
+	} 
+
+	public function getLugarCurEmpCap($id_grupo){
+		//buscar en la tabla grupos el id_reservar
+		$this->db->select('id_reserva');
+		$this->db->where('id_grupo', $id_grupo);
+		$querygrupo = $this->db->get('grupos');
+
+		//ahora en la tabla reservar buscar el id_curso
+		if($querygrupo->num_rows() > 0){
+			$id_reserva = $querygrupo->row()->id_reserva;
+			$this->db->select('id_curso');
+			$this->db->where('id_reserva', $id_reserva);
+			$queryreservar = $this->db->get('reserva_curso');
+
+			//ahora buscar en la tabla de horario
+			if($queryreservar->num_rows() > 0){
+				$id_curso = $queryreservar->row()->id_curso;
+				$this->db->select('lugar_de_clase');
+				$this->db->where('id_curso', $id_curso);
+				$queryhorario = $this->db->get('horario');
+				if ($queryhorario->num_rows() > 0) {
+					$lugares = array_unique(array_map(function($row) {
+						return trim($row['lugar_de_clase']);
+					}, $queryhorario->result_array()));
+	
+					return implode(', ', $lugares);
+				}
+			}else{
+				return false;
+			}
+		} else{
+			return false;
+		}
 	}
 
 	public function getDataCurCap(){
@@ -113,6 +147,21 @@ class PdfsModel extends CI_Model
 		$query = $this->db->get('vw_cursocapacitador');
 		if($query->num_rows() > 0){
 			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+	public function getLugarDataCurCap($id_curso){
+		$this->db->select('lugar_de_clase');
+		$this->db->where('id_curso', $id_curso);
+		$queryhorario = $this->db->get('horario');
+		if ($queryhorario->num_rows() > 0) {
+			$lugares = array_unique(array_map(function($row) {
+				return trim($row['lugar_de_clase']);
+			}, $queryhorario->result_array()));
+	
+				return implode(', ', $lugares);
 		}else{
 			return false;
 		}

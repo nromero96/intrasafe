@@ -17,8 +17,6 @@ class PdfsController extends CI_Controller {
         {
 
         }
-        
-
 
         public function getAllEmpresa(){
                 $this->load->library('Pdf');
@@ -290,6 +288,8 @@ class PdfsController extends CI_Controller {
                 $alumnos = $this->PdfsModel->getAllAlumnosNotasForEmpresa();
                 $datacurempcap = $this->PdfsModel->getDataCurEmpCap();
 
+                $lugarcurso = $this->PdfsModel->getLugarCurEmpCap($datacurempcap->id_grupo); 
+
                 $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
                 $pdf->SetCreator(PDF_CREATOR);
                 $pdf->SetAuthor('SAFE SCAFFOLDING INDUSTRY S.A.C');
@@ -393,7 +393,7 @@ class PdfsController extends CI_Controller {
 
                 $html .= '<tr><td width="316"><b>FECHA: </b>'.$datacurempcap->FechaFin.'</td><td width="316"><b>DURACIÓN: </b>'.$datacurempcap->horas.' Horas Efectivas</td></tr>';
                 $html .= '<tr><td width="316"><b>TEMA: </b>'.$datacurempcap->nombrecurso.'</td><td width="316"><b>CAPACITADOR: </b>'.$datacurempcap->nombres_capacitador.' '.$datacurempcap->apellidos_capacitador.'</td></tr>';
-                $html .= '<tr><td width="316"><b>LUGAR: </b>CETAR SAFESI</td><td width="316"></td></tr>';
+                $html .= '<tr><td width="316"><b>LUGAR: </b>'.$lugarcurso.'</td><td width="316"></td></tr>';
                 $html .= '<tr><td width="316"><b>EMPRESA: </b>'.$datacurempcap->razonsocial.'</td><td width="316"><b>FIRMA:</b><img width="120" src="http://intranet.safesi.com/uploads/firmas/'.$datacurempcap->firma_capacitador.'"></td></tr>';
 
                 
@@ -1338,7 +1338,7 @@ class PdfsController extends CI_Controller {
                                         <td width="273"><img src="http://intranet.safesi.com/assets/img/lg-pdf-asis.png"></td>
                                         <td align="center" width="383"><h3><b><br>REGISTRO DE PRACTICA<br>&nbsp;</h3></b></td>
                                         <td width="273">
-                                            <b>Lugar: </b>CETAR SAFESI<br>
+                                            <b>Lugar: </b>'.$datahorarioc->lugar_de_clase.'<br>
                                             <b>Tema: </b>'.$datacurcap->nombrecurso.'<br>
                                             <b>Fecha: </b>'.$datahorarioc->fecha.'<br>
                                             <b>Capacitador: </b>'.$datacurcap->nombres_capacitador.' '.$datacurcap->apellidos_capacitador.'
@@ -1420,6 +1420,8 @@ class PdfsController extends CI_Controller {
 
                 $alumnos = $this->PdfsModel->getAllAlumnosNotasForCurso();
                 $datacurcap = $this->PdfsModel->getDataCurCap();
+
+                $lugarcurso = $this->PdfsModel->getLugarDataCurCap($datacurcap->id_curso);
 
                 $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
                 $pdf->SetCreator(PDF_CREATOR);
@@ -1526,7 +1528,7 @@ class PdfsController extends CI_Controller {
                 $html .= '<tr><td width="316"><b>FECHA: </b>'.$datacurcap->FechaFin.'</td><td width="316"><b>CAPACITADOR: </b>'.$datacurcap->nombres_capacitador.' '.$datacurcap->apellidos_capacitador.'</td></tr>';
                 $html .= '<tr><td width="316"><b>TEMA: </b>'.$datacurcap->nombrecurso.'</td><td width="316"></td></tr>';
                 $html .= '<tr><td width="316"><b>DURACIÓN: </b>'.$datacurcap->horas.' Horas Efectivas</td><td width="316"></td></tr>';
-                $html .= '<tr><td width="316"><b>LUGAR: </b>CETAR SAFESI</td><td width="316"><b>FIRMA: </b> <img width="120" src="http://intranet.safesi.com/uploads/firmas/'.$datacurcap->firma_capacitador.'"></td></tr>';
+                $html .= '<tr><td width="316"><b>LUGAR: </b>'.$lugarcurso.'</td><td width="316"><b>FIRMA: </b> <img width="120" src="http://intranet.safesi.com/uploads/firmas/'.$datacurcap->firma_capacitador.'"></td></tr>';
 
                 $html .= '</table>';
 
