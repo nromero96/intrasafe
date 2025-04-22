@@ -24,13 +24,6 @@
                         </a>
                     </li>
 
-                    <li <?php if($this->uri->segment(1) == 'emp' && $this->uri->segment(2) == 'e_cursos'){ ?> class="active" <?php } ?>>
-                        <a href="<?=base_url()?>emp/e_cursos">
-                            <i class="material-icons">book</i>
-                            <p>CURSOS</p>
-                        </a>
-                    </li>
-
                     <li <?php if($this->uri->segment(1) == 'emp' && $this->uri->segment(2) == 'e_grupos'){ ?> class="active" <?php } ?>>
                         <a href="<?=base_url()?>emp/e_grupos">
                             <i class="material-icons">folder</i>

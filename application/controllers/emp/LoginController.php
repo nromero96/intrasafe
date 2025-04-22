@@ -18,7 +18,7 @@ class LoginController extends CI_Controller {
 
 		//restrict users to go back to login if session has been set
 		if($this->session->userdata('userempresa')){
-			redirect(base_url('emp/e_cursos'), 'refresh');
+			redirect(base_url('emp/e_grupos'), 'refresh');
 		}
 		else{
 			$this->load->view('emp/e_layout/header');
